@@ -28,7 +28,7 @@ class WROrobot:
     #Senior
     clawHeight = 0
     clawGrab = 0
-    
+
     def __init__(self, comp = "elementary", ev3 = None, motor_2 = None, motor_1 = None, left_wheel = None, right_wheel = None, driveBase = None, gyro = None, light_2 = None, light_1 = None, touch_2 = None, touch_1 = None, color_2 = None, color_1 = None, ultra_2 = None, ultra_1 = None):
         self.comp = comp
         self.ev3 = ev3
@@ -66,7 +66,7 @@ def createRobot(robotParam):
         raise TypeError("robotParam must be of type dict")
 
     if robotParam["comp"].lower() == "elementary":
-        robotObject = WROrobot(robotParam["comp"], robotParam["ev3"], robotParam["motor_2"], robotParam["motor_1"], robotParam["left_wheel"], robotParam["right_wheel"], robotParam["driveBase"], None, robotParam["light_2"], robotParam["light_1"], robotParam["touch_2"], robotParam["touch_1"], None, None, None, None)
+        robotObject = WROrobot(robotParam["comp"], robotParam["ev3"], robotParam["motor_2"], robotParam["motor_1"], robotParam["left_wheel"], robotParam["right_wheel"], robotParam["driveBase"], None, None, None, None, None, None, robotParam["color_1"], None, None)
         return robotObject
 
     if robotParam["comp"].lower() == "junior":

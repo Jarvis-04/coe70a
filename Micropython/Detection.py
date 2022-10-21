@@ -511,3 +511,11 @@ def averageColorDetect(colorSensor):
         return Color.WHITE
     if(index_avg_value == 6):
         return Color.BROWN
+
+def detectBlockColor(colorSensor):
+    currentColor = colorSensor.color()
+    if (currentColor == Color.BLUE):
+        return Color.BLUE
+        # should be replaced with swap block or continue paths
+    elif (currentColor == Color.RED):
+        return Color.BLUE

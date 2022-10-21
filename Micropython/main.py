@@ -27,6 +27,9 @@ robotParam["comp"] = "elementary"
 robotParam["ev3"] = EV3Brick()
 robotParam["left_wheel"] = Motor(Port.B)
 robotParam["right_wheel"] = Motor(Port.C)
+robotParam["color_1"] = ColorSensor(Port.S1)
+robotParam["motor_2"] = Motor(Port.D)
+robotParam["motor_1"] = Motor(Port.A)
 robotParam["driveBase"] = DriveBase(Motor(Port.B), Motor(Port.C), wheel_diameter=69.85, axle_track=133.35)
 robot = RobotBody.createRobot(robotParam)
 
@@ -35,10 +38,14 @@ Movement.setSpeed(robot = robot, speed = 100)
 
 # Moving Forward for 100 millimeters
 
-Movement.forwardMovement(robot = robot, distanceToTravel = 200)
+# Movement.forwardMovement(robot = robot, distanceToTravel = 200)
 
-hook_Motor = Motor(Port.A, Direction.COUNTERCLOCKWISE)
-print(hook_Motor.angle())
-hook_Motor.run_angle(100, -90)
-hook_Motor.run_angle(100, 90)
-wait(2000)
+# moves the claw open then close
+robot.motor_1.run_angle(100, 90)
+wait(1000)
+robot.motor_1.run_angle(100, -90)
+
+# moves the lift a little down then a little up
+robot.motor_2.run_angle(100, 180)
+wait(1000)
+robot.motor_2.run_angle(100, -180)
