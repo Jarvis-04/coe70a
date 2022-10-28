@@ -19,92 +19,12 @@ class robotSolutions:
         self.testRobot = testRobot
 
     def elementarySolution(self):
-        #1
-        Detection.stopOnLine(self.testRobot, 100)
-        Movement.forwardMovement(self.testRobot, 65)
-        Movement.turnOnSpot(self.testRobot, -45)
+        Movement.setSpeed(robot = self.testRobot, speed = 100)
+        Movement.dualSensorPIDlineFollower(self.testRobot, 350, self.testRobot.DRIVE_SPEED)
+        Movement.turnOnSpot(self.testRobot, -35)
         Movement.turnUntilLine(self.testRobot, "LEFT")
-        Movement.PIDlineFollower(self.testRobot, 180, 100, "RIGHT")
-        Movement.setSpeed(self.testRobot, 100)
-        dropNum = Detection.push(self.testRobot, 80)
-        Movement.setSpeed(self.testRobot, 100)
-
-        Movement.backwardMovement(self.testRobot, 50)
-        Movement.turnUntilLine(self.testRobot, "RIGHT")
-        Lift.dropOff(self.testRobot, dropNum)
-        Movement.PIDlineFollower(self.testRobot, 380, 100, "LEFT")
-        #2
-        Movement.setSpeed(self.testRobot, 100)
-        dropNum = Detection.push(self.testRobot, 130)
-        Movement.setSpeed(self.testRobot, 100)
-
-        Movement.backwardMovement(self.testRobot, 50)
-        Movement.turnUntilLine(self.testRobot, "LEFT")
-        Lift.dropOff(self.testRobot, dropNum)
-        #3
-        Movement.forwardMovement(self.testRobot, 100)
-        Movement.turnOnSpot(self.testRobot, 100)
-        Movement.forwardMovement(self.testRobot, 280)
-        Movement.turnUntilLine(self.testRobot, "RIGHT")
-        Movement.PIDlineFollower(self.testRobot, 420, 30, "RIGHT")
-        Detection.stopOnLine(self.testRobot, 100)
-        Movement.forwardMovement(self.testRobot, 65)
-        Movement.turnOnSpot(self.testRobot, -45)
-        Movement.turnUntilLine(self.testRobot,"LEFT")
-        Movement.turnOnSpot(self.testRobot, 15)
-        Movement.setSpeed(self.testRobot, 100)
-        dropNum = Detection.push(self.testRobot, 190)
-        Movement.setSpeed(self.testRobot, 100)
-
-        Movement.backwardMovement(self.testRobot, 80)
-        Movement.turnUntilLine(self.testRobot, "RIGHT")
-        Lift.dropOff(self.testRobot, dropNum)
-        Movement.forwardMovement(self.testRobot, 10)
-        Movement.turnOnSpot(self.testRobot, -90)
-        #4
-        Movement.arcTurn(self.testRobot, 411, 146, 200, "LEFT", 4020)
-        Movement.forwardMovement(self.testRobot, 160)
-        Movement.PIDlineFollower(self.testRobot, 180, 30, "RIGHT")
-        Detection.stopOnLine(self.testRobot, 100)
-        Movement.forwardMovement(self.testRobot, 65)
-        Movement.turnOnSpot(self.testRobot, -45)
-        Movement.turnUntilLine(self.testRobot, "LEFT")
-        Movement.turnOnSpot(self.testRobot, 15)
-        Movement.setSpeed(self.testRobot, 100)
-        dropNum = Detection.push(self.testRobot, 190)
-        Movement.setSpeed(self.testRobot, 100)
-
-        Movement.backwardMovement(self.testRobot, 80)
-        Movement.turnUntilLine(self.testRobot, "RIGHT")
-        Lift.dropOff(self.testRobot, dropNum)
-        #5
-        Movement.turnOnSpot(self.testRobot, -15)
-        Movement.forwardMovement(self.testRobot, 100)
-        Movement.turnOnSpot(self.testRobot, 85)
-        Movement.PIDlineFollower(self.testRobot, 740, 30, "LEFT")
-        Detection.stopOnLine(self.testRobot, 100)
-        Movement.forwardMovement(self.testRobot, 65)
-        Movement.turnOnSpot(self.testRobot, 45)
-        Movement.turnUntilLine(self.testRobot, "RIGHT")
-        Movement.PIDlineFollower(self.testRobot, 140, 100, "LEFT")
-        dropNum = Detection.push(self.testRobot, 100)
-
-        Movement.backwardMovement(self.testRobot, 50)
-        Movement.turnUntilLine(self.testRobot, "LEFT")
-        Lift.dropOff(self.testRobot, dropNum)
-        Movement.PIDlineFollower(self.testRobot, 340, 100, "LEFT")
-        #6
-        Movement.setSpeed(self.testRobot, 100)
-        dropNum = Detection.push(self.testRobot, 130)
-        Movement.setSpeed(self.testRobot, 100)
-
-        Movement.backwardMovement(self.testRobot, 50)
-        Movement.turnUntilLine(self.testRobot, "LEFT")
-        Lift.dropOff(self.testRobot, dropNum)
-        #END
-        Movement.PIDlineFollower(self.testRobot, 220, 100, "RIGHT")
-        Movement.turnOnSpot(self.testRobot, -90)
-        Movement.forwardMovement(self.testRobot, 100)
+        Movement.dualSensorPIDlineFollower(self.testRobot, 300, self.testRobot.DRIVE_SPEED)
+        Detection.lineFollowUntilLineIntersection(self.testRobot, 500, self.testRobot.DRIVE_SPEED)
 
     def juniorSolution(self):
         Detection.stopOnLine(self.testRobot, 100)

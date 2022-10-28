@@ -66,7 +66,7 @@ def createRobot(robotParam):
         raise TypeError("robotParam must be of type dict")
 
     if robotParam["comp"].lower() == "elementary":
-        robotObject = WROrobot(robotParam["comp"], robotParam["ev3"], robotParam["motor_2"], robotParam["motor_1"], robotParam["left_wheel"], robotParam["right_wheel"], robotParam["driveBase"], None, None, None, None, None, None, robotParam["color_1"], None, None)
+        robotObject = WROrobot(robotParam["comp"], robotParam["ev3"], robotParam["motor_2"], robotParam["motor_1"], robotParam["left_wheel"], robotParam["right_wheel"], robotParam["driveBase"], None, robotParam["light_2"], robotParam["light_1"], None, None, None, None, None, None)
         return robotObject
 
     if robotParam["comp"].lower() == "junior":

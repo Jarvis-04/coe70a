@@ -249,9 +249,10 @@ def lineFollowUntilLineIntersection(robot: WROrobot, distanceToTravel, speed):
         lastError = error
         distance = robot.driveBase.distance() - startDistance
         if(robot.light_1.reflection() <= 15 and robot.light_2.reflection() <= 15):
+            print("Stopping")
             robot.driveBase.stop()
             break
-    robotStop(robot)
+    Movement.robotStop(robot)
     return robot.driveBase.distance() - startDistance
 
 
@@ -294,7 +295,7 @@ def lineFollowUntilColorIntersection(robot: WROrobot, distanceToTravel, speed):
         if((robot.light_1.reflection() >= 30 and robot.light_2.reflection() >= 30) or (robot.light_1.reflection() <= 15 and robot.light_2.reflection() <= 15)):
             robot.driveBase.stop()
             break
-    robotStop(robot)
+    Movement.robotStop(robot)
     return robot.driveBase.distance() - startDistance
 
 def stopOnLine(robot: WROrobot, speed):
@@ -317,28 +318,8 @@ def stopOnLine(robot: WROrobot, speed):
     robot.driveBase.drive(speed, 0)
     while(True):
         if(robot.light_2.color() == Color.BLACK and robot.light_1.color() == Color.BLACK):
-            robotStop(robot)
+            Movement.robotStop(robot)
             break
-
-
-def driveUntilLine(robot: WROrobot, speed):
-    """Allows robot to drive until it reaches a line then will stop the robot
-
-    Args:
-        robot (WROrobot): Robot object used for competition
-
-    Raises:
-        None
-
-    Returns:
-        None
-    """
-    robot.driveBase.drive(speed, 0)
-    while(True):
-        if(robot.light_2.color() == Color.BLACK or robot.light_1.color() == Color.BLACK):
-            robotStop(robot)
-            break
-
 
 #Depreicated
 def collectTurbinesOntoBase(robot:WROrobot, turbineDeciders, speed):
@@ -512,6 +493,7 @@ def averageColorDetect(colorSensor):
     if(index_avg_value == 6):
         return Color.BROWN
 
+#Elementary
 def detectBlockColor(colorSensor):
     currentColor = colorSensor.color()
     if (currentColor == Color.BLUE):
