@@ -25,6 +25,34 @@ class robotSolutions:
         Movement.turnUntilLine(self.testRobot, "LEFT")
         Movement.dualSensorPIDlineFollower(self.testRobot, 300, self.testRobot.DRIVE_SPEED)
         Detection.lineFollowUntilLineIntersection(self.testRobot, 500, self.testRobot.DRIVE_SPEED)
+        Movement.forwardMovement(self.testRobot, 50)
+        Movement.turnOnSpot(self.testRobot, -35)
+        Movement.turnUntilLine(self.testRobot, "LEFT")
+        Detection.lineFollowUntilBlock(self.testRobot, 300, self.testRobot.DRIVE_SPEED)
+        # do block detect and replace here
+        Movement.forwardMovement(self.testRobot, 50)
+        Movement.turnUntilLine(self.testRobot, "RIGHT")
+        Detection.lineFollowUntilBlock(self.testRobot, 300, self.testRobot.DRIVE_SPEED)
+        #  do block detect and replce here
+        Movement.turnOnSpot(self.testRobot, 35)
+        Movement.turnUntilLine(self.testRobot, "RIGHT")
+        Detection.lineFollowUntilBlock(self.testRobot, 300, self.testRobot.DRIVE_SPEED)
+        #  do block detect and replace here
+        Movement.forwardMovement(self.testRobot, 50)
+        Movement.turnUntilLine(self.testRobot, "RIGHT")
+        Detection.lineFollowUntilBlock(self.testRobot, 300, self.testRobot.DRIVE_SPEED)
+        # do block detect and replace here
+        Movement.forwardMovement(self.testRobot, 50)
+        Movement.turnOnSpot(self.testRobot, 125)
+        Movement.turnUntilLine(self.testRobot, "RIGHT")
+        Detection.lineFollowUntilBlock(self.testRobot, 300, self.testRobot.DRIVE_SPEED)
+        # do block detect and replace here
+        Movement.turnOnSpot(self.testRobot, 45)
+        Detection.forwardMovementUntilSolidColor(self.testRobot, 1000, self.testRobot.DRIVE_SPEED)
+
+
+
+
 
     def juniorSolution(self):
         Detection.stopOnLine(self.testRobot, 100)
