@@ -38,4 +38,9 @@ robot = RobotBody.createRobot(robotParam)
 
 solution = Solution.robotSolutions(robot)
 Solution.robotSolutions.elementarySolution(solution)
+# while (1):
+#     print(robot.light_1.color())
+#     print(robot.light_2.color())
+#     wait(100)
+# Detection.lineFollowUntilBlock(robot, 300, 100)
 

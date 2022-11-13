@@ -528,6 +528,8 @@ def lineFollowUntilBlock(robot: WROrobot, distanceToTravel, speed):
     integral = 0
     lastError = 0
     derivative = 0
+    lastColor = Color.BLACK
+    consecutiveColor = 0
 
     # Continue to follow the line until the distance the robot has travelled is equal to the travel distance specified
     while ((distance < abs(distanceToTravel)) and (abs(distanceToTravel) >= 0)):
@@ -540,9 +542,15 @@ def lineFollowUntilBlock(robot: WROrobot, distanceToTravel, speed):
         distance = robot.driveBase.distance() - startDistance
         color = robot.color_1.color()
         if(color in [Color.RED, Color.BLUE]):
-            print("Stopping")
-            robot.driveBase.stop()
-            break
+            if (lastColor == color):
+                consecutiveColor += 1
+            if (consecutiveColor == 50):
+                robot.driveBase.stop()
+                print("saw block")
+                break
+        else:
+            consecutiveColor = 0
+        lastColor = color
     Movement.robotStop(robot)
     return robot.driveBase.distance() - startDistance
 
