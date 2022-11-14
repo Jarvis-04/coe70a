@@ -11,7 +11,7 @@ import Lift
 import Detection
 
 
-def backwardMovement(robot: WROrobot, distanceToTravel: int):
+def forwardMovement(robot: WROrobot, distanceToTravel: int):
     """
     Moves the robot forward a user given amount of distance
 
@@ -41,7 +41,7 @@ def backwardMovement(robot: WROrobot, distanceToTravel: int):
     # return None
 
 
-def forwardMovement(robot: WROrobot, distanceToTravel: int):
+def backwardMovement(robot: WROrobot, distanceToTravel: int):
     """
     Moves the robot backward a user given amount of distance
 

@@ -25,6 +25,43 @@ class robotSolutions:
         Movement.turnUntilLine(self.testRobot, "LEFT")
         Movement.dualSensorPIDlineFollower(self.testRobot, 300, self.testRobot.DRIVE_SPEED)
         Detection.lineFollowUntilLineIntersection(self.testRobot, 500, self.testRobot.DRIVE_SPEED)
+        Movement.forwardMovement(self.testRobot, 180)
+        Movement.turnUntilLine(self.testRobot, "LEFT")
+        Detection.lineFollowUntilBlock(self.testRobot, 300, self.testRobot.DRIVE_SPEED)
+        # # do block detect and replace here
+        print("Block 1")
+        Movement.forwardMovement(self.testRobot, 180)
+        Movement.turnUntilLine(self.testRobot, "RIGHT")
+        Detection.lineFollowUntilBlock(self.testRobot, 3000, self.testRobot.DRIVE_SPEED)
+        # #  do block detect and replce here
+        print("Block 2")
+        Movement.forwardMovement(self.testRobot, 180)
+        Movement.turnOnSpot(self.testRobot, 80)
+        Movement.turnUntilLine(self.testRobot, "RIGHT")
+        Detection.lineFollowUntilBlock(self.testRobot, 3000, self.testRobot.DRIVE_SPEED)
+        # #  do block detect and replace here
+        print("Block 3")
+        Movement.forwardMovement(self.testRobot, 150)
+        Movement.turnUntilLine(self.testRobot, "RIGHT")
+        Detection.lineFollowUntilBlock(self.testRobot, 3000, self.testRobot.DRIVE_SPEED)
+        # # do block detect and replace here
+        print("Block 4")
+        Movement.forwardMovement(self.testRobot, 180)
+        Movement.turnOnSpot(self.testRobot, 125)
+        Movement.turnUntilLine(self.testRobot, "RIGHT")
+        Detection.lineFollowUntilBlock(self.testRobot, 3000, self.testRobot.DRIVE_SPEED)
+        # # do block detect and replace here
+        print("Block 5")
+        Movement.forwardMovement(self.testRobot, 180)
+        Movement.turnOnSpot(self.testRobot, 45)
+        Detection.lineFollowUntilLineIntersection(self.testRobot, 1000, self.testRobot.DRIVE_SPEED)
+        Movement.forwardMovement(self.testRobot, 150)
+        Detection.lineFollowUntilLineIntersection(self.testRobot, 1000, self.testRobot.DRIVE_SPEED)
+        Movement.forwardMovement(self.testRobot, 150)
+        Detection.lineFollowUntilLineIntersection(self.testRobot, 1000, self.testRobot.DRIVE_SPEED)
+
+
+
 
     def juniorSolution(self):
         Detection.stopOnLine(self.testRobot, 100)
