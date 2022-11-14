@@ -325,3 +325,37 @@ def blockHold(robot:WROrobot):
     """
     clawGrab(robot, "pick")
     robot.motor_2.run_angle(1000, -80, Stop.HOLD, True)
+
+def elevatorReset(robot:WROrobot):
+    """Resets elevator to neutral/starting position
+
+    Args:
+        robot (WROrobot): Robot object used for competition
+
+    Raises:
+        None
+
+    Returns:
+        None
+    """
+    #This sets the elevator so the platforms carrying the blocks are upright and ready to be delivered,
+    # first line resets elevator to base position
+    robot.motor_2.run_until_stalled(1000, Stop.HOLD, 60)
+    robot.motor_2.reset_angle(0)
+    robot.motor_2.run_angle(1000, -90, Stop.HOLD, True)
+
+def elevatorDrop(robot:WROrobot):
+    """Moves the elevator a certain distance allowing a single block to drop
+
+    Args:
+        robot (WROrobot): Robot object used for competition
+
+    Raises:
+        None
+
+    Returns:
+        None
+    """
+    #This sets the elevator so the platforms carrying the blocks are upright and ready to be delivered,
+    # first line resets elevator to base position
+    robot.motor_2.run_angle(500, -125, Stop.HOLD, True) #Second parameter(angle) needs to be tested with robot and changed accordingly

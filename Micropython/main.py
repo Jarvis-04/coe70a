@@ -6,7 +6,7 @@ from pybricks.parameters import Port, Stop, Direction, Button, Color
 from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
-
+from time import sleep
 # This program requires LEGO EV3 MicroPython v2.0 or higher.
 # Click "Open user guide" on the EV3 extension tab for more information.
 
@@ -30,11 +30,14 @@ robotParam["left_wheel"] = Motor(Port.B, Direction.COUNTERCLOCKWISE)
 robotParam["right_wheel"] = Motor(Port.C, Direction.COUNTERCLOCKWISE)
 robotParam["light_1"] = ColorSensor(Port.S1)
 robotParam["light_2"] = ColorSensor(Port.S2)
-robotParam["motor_2"] = Motor(Port.D)
+robotParam["motor_2"] = Motor(Port.D, Direction.COUNTERCLOCKWISE)
 robotParam["motor_1"] = Motor(Port.A)
 robotParam["driveBase"] = DriveBase(Motor(Port.B, Direction.COUNTERCLOCKWISE), Motor(Port.C, Direction.COUNTERCLOCKWISE), wheel_diameter=69.85, axle_track=195.0)
 robot = RobotBody.createRobot(robotParam)
 
-solution = Solution.robotSolutions(robot)
-Solution.robotSolutions.elementarySolution(solution)
-
+#solution = Solution.robotSolutions(robot)
+#Solution.robotSolutions.elementarySolution(solution)
+# for i in range(4):
+#     Lift.elevatorDrop(robot)
+#     sleep(2)
+# Lift.elevatorReset(robot)
