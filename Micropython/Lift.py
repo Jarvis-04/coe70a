@@ -66,10 +66,11 @@ def clawGrab(robot:WROrobot, action):
         raise TypeError("action must be of type str")
 
     if action == "pick":
-        robot.motor_1.run_until_stalled(-200, Stop.HOLD, 80)
+        robot.motor_1.run_until_stalled(-200, Stop.HOLD, 40)
 
     if action == "release":
-        robot.motor_1.run_until_stalled(200, Stop.HOLD, 30)
+        #robot.motor_1.run_until_stalled(200, Stop.HOLD, 30)
+        robot.motor_1.run_angle(200, 110, Stop.HOLD, True)
 
 def twoPartLift(robot:WROrobot, speed, grabPer, heightPer, order = 0):
     """This function utilizes motor1 and motor2 found in the Senior competition design.

@@ -494,14 +494,30 @@ def averageColorDetect(colorSensor):
         return Color.BROWN
 
 #Elementary
-def detectBlockColor(colorSensor):
-    currentColor = colorSensor.color()
-    if (currentColor == Color.BLUE):
-        return Color.BLUE
-        # should be replaced with swap block or continue paths
-    elif (currentColor == Color.RED):
-        return Color.RED
+# def detectBlockColor(colorSensor):
+#     currentColor = colorSensor.color()
+#     if (currentColor == Color.BLUE):
+#         return Color.BLUE
+#         # should be replaced with swap block or continue paths
+#     elif (currentColor == Color.RED):
+#         return Color.RED
 
+def detectBlockColor(robot:WROrobot):
+    """Measures the color of a surface and returns a color
+
+    Args:
+        robot (WROrobot): Robot object used for competition
+
+    Raises:
+        None
+
+    Returns:
+        Current Block Color
+    """
+    currentColor = robot.color_1.color()
+    return currentColor
+
+    
 def lineFollowUntilBlock(robot: WROrobot, distanceToTravel, speed):
     """Follows line until robot reaches a block on the competition mat
 

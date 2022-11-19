@@ -11,6 +11,7 @@ from RobotBody import WROrobot
 import Movement
 import Detection
 import Lift
+from time import sleep
 
 class robotSolutions:
     # Define constants here
@@ -28,7 +29,22 @@ class robotSolutions:
         Movement.forwardMovement(self.testRobot, 180)
         Movement.turnUntilLine(self.testRobot, "LEFT")
         Detection.lineFollowUntilBlock(self.testRobot, 300, self.testRobot.DRIVE_SPEED)
-        # # do block detect and replace here
+        # # do block detect and replace here (MOVEMENT AND ANGLE NUMBERS NOT TESTED YET)
+        if Detection.detectBlockColor(self.testRobot) == Color.RED:
+            # Picking red block
+            Movement.backwardMovement(self.testRobot, 100)
+            Lift.clawGrab(self.testRobot, "release")
+            Movement.forwardMovement(self.testRobot, 100)
+            Lift.clawGrab(self.testRobot, "pick")
+            # Placing blue block
+            sleep(3)
+            Movement.backwardMovement(self.testRobot, 80)
+            Movement.turnOnSpot(self.testRobot, 270)
+            Lift.elevatorDrop(self.testRobot)
+            # Movement.turnOnSpot(self.testRobot, -270)
+            # Movement.forwardMovement(self.testRobot, 100)
+            Movement.turnUntilLine(self.testRobot, "RIGHT")
+
         print("Block 1")
         Movement.forwardMovement(self.testRobot, 180)
         Movement.turnUntilLine(self.testRobot, "RIGHT")
