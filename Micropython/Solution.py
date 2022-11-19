@@ -20,7 +20,7 @@ class robotSolutions:
         self.testRobot = testRobot
 
     def elementarySolution(self):
-        Movement.setSpeed(robot = self.testRobot, speed = 100)
+        Movement.setSpeed(robot = self.testRobot, speed = 150)
         Movement.dualSensorPIDlineFollower(self.testRobot, 350, self.testRobot.DRIVE_SPEED)
         Movement.turnOnSpot(self.testRobot, -35)
         Movement.turnUntilLine(self.testRobot, "LEFT")
@@ -46,13 +46,13 @@ class robotSolutions:
             Movement.turnUntilLine(self.testRobot, "RIGHT")
 
         print("Block 1")
-        Movement.forwardMovement(self.testRobot, 180)
+        # Movement.forwardMovement(self.testRobot, 180)
         Movement.turnUntilLine(self.testRobot, "RIGHT")
         Detection.lineFollowUntilBlock(self.testRobot, 3000, self.testRobot.DRIVE_SPEED)
         # #  do block detect and replce here
         print("Block 2")
         Movement.forwardMovement(self.testRobot, 180)
-        Movement.turnOnSpot(self.testRobot, 80)
+        Movement.turnOnSpot(self.testRobot, 90)
         Movement.turnUntilLine(self.testRobot, "RIGHT")
         Detection.lineFollowUntilBlock(self.testRobot, 3000, self.testRobot.DRIVE_SPEED)
         # #  do block detect and replace here
