@@ -36,11 +36,6 @@ robotParam["motor_1"] = Motor(Port.A)
 robotParam["driveBase"] = DriveBase(Motor(Port.B, Direction.COUNTERCLOCKWISE), Motor(Port.C, Direction.COUNTERCLOCKWISE), wheel_diameter=69.85, axle_track=195.0)
 robot = RobotBody.createRobot(robotParam)
 
+
 solution = Solution.robotSolutions(robot)
 Solution.robotSolutions.elementarySolution(solution)
-# while (1):
-#     print(robot.light_1.color())
-#     print(robot.light_2.color())
-#     wait(100)
-# Detection.lineFollowUntilBlock(robot, 300, 100)
-

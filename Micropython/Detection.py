@@ -544,7 +544,7 @@ def lineFollowUntilBlock(robot: WROrobot, distanceToTravel, speed):
         if(color in [Color.RED, Color.BLUE]):
             if (lastColor == color):
                 consecutiveColor += 1
-            if (consecutiveColor == 50):
+            if (consecutiveColor == 30):
                 robot.driveBase.stop()
                 print("saw block")
                 break

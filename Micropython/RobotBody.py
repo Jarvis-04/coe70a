@@ -14,7 +14,8 @@ class WROrobot:
     WHITE = 54
     threshold = (BLACK + WHITE) / 2
     DRIVE_SPEED = 50
-    Kp = 0.5
+    # Kp = 0.5
+    Kp = 1
     Ki = 0.005
     Kd = 0.01
 
