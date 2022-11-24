@@ -36,6 +36,7 @@ robotParam["motor_1"] = Motor(Port.A)
 robotParam["driveBase"] = DriveBase(Motor(Port.B, Direction.COUNTERCLOCKWISE), Motor(Port.C, Direction.COUNTERCLOCKWISE), wheel_diameter=69.85, axle_track=195.0)
 robot = RobotBody.createRobot(robotParam)
 
+Lift.elevatorReset(robot)
 
 solution = Solution.robotSolutions(robot)
 Solution.robotSolutions.elementarySolution(solution)
@@ -46,4 +47,4 @@ Solution.robotSolutions.elementarySolution(solution)
 #     wait(100)
 # Detection.lineFollowUntilBlock(robot, 300, 100)
 
-# Lift.elevatorReset(robot)
+

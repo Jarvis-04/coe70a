@@ -32,18 +32,16 @@ class robotSolutions:
         # # do block detect and replace here (MOVEMENT AND ANGLE NUMBERS NOT TESTED YET)
         if Detection.detectBlockColor(self.testRobot) == Color.RED:
             # Picking red block
-            Movement.backwardMovement(self.testRobot, 100)
+            Movement.backwardMovement(self.testRobot, 110)
             Lift.clawGrab(self.testRobot, "release")
-            Movement.forwardMovement(self.testRobot, 100)
+            Movement.forwardMovement(self.testRobot, 110)
             Lift.clawGrab(self.testRobot, "pick")
             # Placing blue block
-            sleep(3)
-            Movement.backwardMovement(self.testRobot, 80)
+            #Movement.backwardMovement(self.testRobot, 40)
             Movement.turnOnSpot(self.testRobot, 270)
             Lift.elevatorDrop(self.testRobot)
-            # Movement.turnOnSpot(self.testRobot, -270)
-            # Movement.forwardMovement(self.testRobot, 100)
-            Movement.turnUntilLine(self.testRobot, "RIGHT")
+            Movement.turnOnSpot(self.testRobot, -220)
+            #Movement.forwardMovement(self.testRobot, 100)
 
         print("Block 1")
         # Movement.forwardMovement(self.testRobot, 180)
