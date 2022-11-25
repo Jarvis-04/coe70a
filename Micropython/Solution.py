@@ -43,8 +43,14 @@ class robotSolutions:
         # Placing blue block
         Lift.elevatorDrop(self.testRobot)
         Detection.lineFollowUntilBlock(self.testRobot, 3000, self.testRobot.DRIVE_SPEED)
-        # # #  do block detect and replce here
-        # print("Block 2")
+        # #  do block detect and replce here
+        if Detection.detectBlockColor(self.testRobot) == Color.RED: # <--- NOT DETECTING BLOCK?
+            # Picking red block
+            Movement.backwardMovement(self.testRobot, 110)
+            Lift.clawGrab(self.testRobot, "release")
+            Movement.forwardMovement(self.testRobot, 110)
+            Lift.clawGrab(self.testRobot, "pick")
+        print("Block 2")
         # Movement.forwardMovement(self.testRobot, 180)
         # Movement.turnOnSpot(self.testRobot, 90)
         # Movement.turnUntilLine(self.testRobot, "RIGHT")
