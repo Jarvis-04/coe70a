@@ -36,39 +36,91 @@ class robotSolutions:
             Lift.clawGrab(self.testRobot, "release")
             Movement.forwardMovement(self.testRobot, 110)
             Lift.clawGrab(self.testRobot, "pick")
-        print("Block 1")
-        Movement.forwardMovement(self.testRobot, 180)
-        Movement.turnUntilLine(self.testRobot, "RIGHT")
-        Movement.forwardMovement(self.testRobot, 280)
-        # Placing blue block
-        Lift.elevatorDrop(self.testRobot)
+            Movement.forwardMovement(self.testRobot, 180)
+            Movement.turnUntilLine(self.testRobot, "RIGHT")
+            Movement.forwardMovement(self.testRobot, 280)
+            # Placing blue block
+            Lift.elevatorDrop(self.testRobot)
+        else:
+            Movement.forwardMovement(self.testRobot, 180)
+            Movement.turnUntilLine(self.testRobot, "RIGHT")
         Detection.lineFollowUntilBlock(self.testRobot, 3000, self.testRobot.DRIVE_SPEED)
         # # #  do block detect and replce here
         # print("Block 2")
-        # Movement.forwardMovement(self.testRobot, 180)
-        # Movement.turnOnSpot(self.testRobot, 90)
-        # Movement.turnUntilLine(self.testRobot, "RIGHT")
-        # Detection.lineFollowUntilBlock(self.testRobot, 3000, self.testRobot.DRIVE_SPEED)
+        if Detection.detectBlockColor(self.testRobot) == Color.RED:
+            # Picking red block
+            Movement.backwardMovement(self.testRobot, 110)
+            Lift.clawGrab(self.testRobot, "release")
+            Movement.forwardMovement(self.testRobot, 110)
+            Lift.clawGrab(self.testRobot, "pick")
+            Movement.forwardMovement(self.testRobot, 180)
+            Movement.turnOnSpot(self.testRobot, 90)
+            Movement.turnUntilLine(self.testRobot, "RIGHT")
+            Movement.forwardMovement(self.testRobot, 280)
+            # Placing blue block
+            Lift.elevatorDrop(self.testRobot)
+        else :
+            Movement.forwardMovement(self.testRobot, 180)
+            Movement.turnOnSpot(self.testRobot, 90)
+            Movement.turnUntilLine(self.testRobot, "RIGHT")
+        Detection.lineFollowUntilBlock(self.testRobot, 3000, self.testRobot.DRIVE_SPEED)
         # # #  do block detect and replace here
         # print("Block 3")
-        # Movement.forwardMovement(self.testRobot, 150)
-        # Movement.turnUntilLine(self.testRobot, "RIGHT")
-        # Detection.lineFollowUntilBlock(self.testRobot, 3000, self.testRobot.DRIVE_SPEED)
+        if Detection.detectBlockColor(self.testRobot) == Color.RED:
+            # Picking red block
+            Movement.backwardMovement(self.testRobot, 110)
+            Lift.clawGrab(self.testRobot, "release")
+            Movement.forwardMovement(self.testRobot, 110)
+            Lift.clawGrab(self.testRobot, "pick")
+            Movement.forwardMovement(self.testRobot, 150)
+            Movement.turnUntilLine(self.testRobot, "RIGHT")
+            Movement.forwardMovement(self.testRobot, 280)
+            # Placing blue block
+            Lift.elevatorDrop(self.testRobot)
+        else:
+            Movement.forwardMovement(self.testRobot, 150)
+            Movement.turnUntilLine(self.testRobot, "RIGHT")
+        Detection.lineFollowUntilBlock(self.testRobot, 3000, self.testRobot.DRIVE_SPEED)
         # # # do block detect and replace here
         # print("Block 4")
-        # Movement.forwardMovement(self.testRobot, 180)
-        # Movement.turnOnSpot(self.testRobot, 125)
-        # Movement.turnUntilLine(self.testRobot, "RIGHT")
-        # Detection.lineFollowUntilBlock(self.testRobot, 3000, self.testRobot.DRIVE_SPEED)
+        if Detection.detectBlockColor(self.testRobot) == Color.RED:
+            # Picking red block
+            Movement.backwardMovement(self.testRobot, 110)
+            Lift.clawGrab(self.testRobot, "release")
+            Movement.forwardMovement(self.testRobot, 110)
+            Lift.clawGrab(self.testRobot, "pick")
+            Movement.forwardMovement(self.testRobot, 180)
+            Movement.turnOnSpot(self.testRobot, 125)
+            Movement.turnUntilLine(self.testRobot, "RIGHT")
+            Movement.forwardMovement(self.testRobot, 280)
+            # Placing blue block
+            Lift.elevatorDrop(self.testRobot)
+        else :
+            Movement.forwardMovement(self.testRobot, 180)
+            Movement.turnOnSpot(self.testRobot, 125)
+            Movement.turnUntilLine(self.testRobot, "RIGHT")
+        Detection.lineFollowUntilBlock(self.testRobot, 3000, self.testRobot.DRIVE_SPEED)
         # # # do block detect and replace here
         # print("Block 5")
-        # Movement.forwardMovement(self.testRobot, 180)
-        # Movement.turnOnSpot(self.testRobot, 45)
-        # Detection.lineFollowUntilLineIntersection(self.testRobot, 1000, self.testRobot.DRIVE_SPEED)
-        # Movement.forwardMovement(self.testRobot, 150)
-        # Detection.lineFollowUntilLineIntersection(self.testRobot, 1000, self.testRobot.DRIVE_SPEED)
-        # Movement.forwardMovement(self.testRobot, 150)
-        # Detection.lineFollowUntilLineIntersection(self.testRobot, 1000, self.testRobot.DRIVE_SPEED)
+        if Detection.detectBlockColor(self.testRobot) == Color.RED:
+            # Picking red block
+            Movement.backwardMovement(self.testRobot, 110)
+            Lift.clawGrab(self.testRobot, "release")
+            Movement.forwardMovement(self.testRobot, 110)
+            Lift.clawGrab(self.testRobot, "pick")
+            Movement.forwardMovement(self.testRobot, 180)
+            Movement.turnOnSpot(self.testRobot, 45)
+            Movement.forwardMovement(self.testRobot, 280)
+            # Placing blue block
+            Lift.elevatorDrop(self.testRobot)
+        else:
+            Movement.forwardMovement(self.testRobot, 180)
+            Movement.turnOnSpot(self.testRobot, 45)
+        Detection.lineFollowUntilLineIntersection(self.testRobot, 1000, self.testRobot.DRIVE_SPEED)
+        Movement.forwardMovement(self.testRobot, 150)
+        Detection.lineFollowUntilLineIntersection(self.testRobot, 1000, self.testRobot.DRIVE_SPEED)
+        Movement.forwardMovement(self.testRobot, 150)
+        Detection.lineFollowUntilLineIntersection(self.testRobot, 1000, self.testRobot.DRIVE_SPEED)
 
 
 
