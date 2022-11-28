@@ -517,7 +517,7 @@ def detectBlockColor(robot:WROrobot):
     currentColor = robot.color_1.color()
     return currentColor
 
-    
+
 def lineFollowUntilBlock(robot: WROrobot, distanceToTravel, speed):
     """Follows line until robot reaches a block on the competition mat
 
@@ -560,7 +560,7 @@ def lineFollowUntilBlock(robot: WROrobot, distanceToTravel, speed):
         if(color in [Color.RED, Color.BLUE]):
             if (lastColor == color):
                 consecutiveColor += 1
-            if (consecutiveColor == 30):
+            if (consecutiveColor == 20):
                 robot.driveBase.stop()
                 print("saw block")
                 break

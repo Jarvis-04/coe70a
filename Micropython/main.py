@@ -39,7 +39,7 @@ robot = RobotBody.createRobot(robotParam)
 Lift.elevatorReset(robot)
 solution = Solution.robotSolutions(robot)
 Solution.robotSolutions.elementarySolution(solution)
-
+# Detection.lineFollowUntilBlock(robot, 3000, 100)
 # while (1):
 #     print(robot.light_1.color())
 #     print(robot.light_2.color())
