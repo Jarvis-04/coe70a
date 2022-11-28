@@ -37,7 +37,6 @@ robotParam["driveBase"] = DriveBase(Motor(Port.B, Direction.COUNTERCLOCKWISE), M
 robot = RobotBody.createRobot(robotParam)
 
 Lift.elevatorReset(robot)
-
 solution = Solution.robotSolutions(robot)
 Solution.robotSolutions.elementarySolution(solution)
 

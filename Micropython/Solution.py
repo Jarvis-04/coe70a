@@ -29,16 +29,17 @@ class robotSolutions:
         Movement.forwardMovement(self.testRobot, 180)
         Movement.turnUntilLine(self.testRobot, "LEFT")
         Detection.lineFollowUntilBlock(self.testRobot, 300, self.testRobot.DRIVE_SPEED)
-        # # do block detect and replace here
+        # # # do block detect and replace here
+        # print("Block 1")
         if Detection.detectBlockColor(self.testRobot) == Color.RED:
             # Picking red block
-            Movement.backwardMovement(self.testRobot, 110)
+            Movement.backwardMovement(self.testRobot, 120)
             Lift.clawGrab(self.testRobot, "release")
             Movement.forwardMovement(self.testRobot, 110)
             Lift.clawGrab(self.testRobot, "pick")
             Movement.forwardMovement(self.testRobot, 180)
             Movement.turnUntilLine(self.testRobot, "RIGHT")
-            Movement.forwardMovement(self.testRobot, 280)
+            Movement.forwardMovement(self.testRobot, 270)
             # Placing blue block
             Lift.elevatorDrop(self.testRobot)
         else:
@@ -49,14 +50,14 @@ class robotSolutions:
         # print("Block 2")
         if Detection.detectBlockColor(self.testRobot) == Color.RED:
             # Picking red block
-            Movement.backwardMovement(self.testRobot, 110)
+            Movement.backwardMovement(self.testRobot, 120)
             Lift.clawGrab(self.testRobot, "release")
             Movement.forwardMovement(self.testRobot, 110)
             Lift.clawGrab(self.testRobot, "pick")
-            Movement.forwardMovement(self.testRobot, 180)
+            Movement.forwardMovement(self.testRobot, 150)
             Movement.turnOnSpot(self.testRobot, 90)
             Movement.turnUntilLine(self.testRobot, "RIGHT")
-            Movement.forwardMovement(self.testRobot, 280)
+            Movement.forwardMovement(self.testRobot, 270)
             # Placing blue block
             Lift.elevatorDrop(self.testRobot)
         else :
@@ -68,13 +69,13 @@ class robotSolutions:
         # print("Block 3")
         if Detection.detectBlockColor(self.testRobot) == Color.RED:
             # Picking red block
-            Movement.backwardMovement(self.testRobot, 110)
+            Movement.backwardMovement(self.testRobot, 120)
             Lift.clawGrab(self.testRobot, "release")
             Movement.forwardMovement(self.testRobot, 110)
             Lift.clawGrab(self.testRobot, "pick")
             Movement.forwardMovement(self.testRobot, 150)
             Movement.turnUntilLine(self.testRobot, "RIGHT")
-            Movement.forwardMovement(self.testRobot, 280)
+            Movement.forwardMovement(self.testRobot, 270)
             # Placing blue block
             Lift.elevatorDrop(self.testRobot)
         else:
@@ -85,14 +86,14 @@ class robotSolutions:
         # print("Block 4")
         if Detection.detectBlockColor(self.testRobot) == Color.RED:
             # Picking red block
-            Movement.backwardMovement(self.testRobot, 110)
+            Movement.backwardMovement(self.testRobot, 120)
             Lift.clawGrab(self.testRobot, "release")
             Movement.forwardMovement(self.testRobot, 110)
             Lift.clawGrab(self.testRobot, "pick")
             Movement.forwardMovement(self.testRobot, 180)
             Movement.turnOnSpot(self.testRobot, 125)
             Movement.turnUntilLine(self.testRobot, "RIGHT")
-            Movement.forwardMovement(self.testRobot, 280)
+            Movement.forwardMovement(self.testRobot, 270)
             # Placing blue block
             Lift.elevatorDrop(self.testRobot)
         else :
@@ -104,13 +105,13 @@ class robotSolutions:
         # print("Block 5")
         if Detection.detectBlockColor(self.testRobot) == Color.RED:
             # Picking red block
-            Movement.backwardMovement(self.testRobot, 110)
+            Movement.backwardMovement(self.testRobot, 120)
             Lift.clawGrab(self.testRobot, "release")
             Movement.forwardMovement(self.testRobot, 110)
             Lift.clawGrab(self.testRobot, "pick")
             Movement.forwardMovement(self.testRobot, 180)
             Movement.turnOnSpot(self.testRobot, 45)
-            Movement.forwardMovement(self.testRobot, 280)
+            Movement.forwardMovement(self.testRobot, 270)
             # Placing blue block
             Lift.elevatorDrop(self.testRobot)
         else:
