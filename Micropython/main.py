@@ -33,16 +33,18 @@ robotParam["light_2"] = ColorSensor(Port.S2)
 robotParam["color_1"] = ColorSensor(Port.S4)
 robotParam["motor_2"] = Motor(Port.D, Direction.COUNTERCLOCKWISE)
 robotParam["motor_1"] = Motor(Port.A)
-robotParam["driveBase"] = DriveBase(Motor(Port.B, Direction.COUNTERCLOCKWISE), Motor(Port.C, Direction.COUNTERCLOCKWISE), wheel_diameter=69.85, axle_track=195.0)
+robotParam["driveBase"] = DriveBase(Motor(Port.B, Direction.COUNTERCLOCKWISE), Motor(Port.C, Direction.COUNTERCLOCKWISE), wheel_diameter=56, axle_track=184.0)
 robot = RobotBody.createRobot(robotParam)
 
-Lift.elevatorReset(robot)
+# Detection.lineFollowUntilBlock(robot, 1000, 150)
+
+# Detection.PIDlineFollowerUntilBlock(robot, 1000, 100, "LEFT")
+
 solution = Solution.robotSolutions(robot)
 Solution.robotSolutions.elementarySolution(solution)
-# Detection.lineFollowUntilBlock(robot, 3000, 100)
+# # Detection.lineFollowUntilBlock(robot, 3000, 100)
 # while (1):
-#     print(robot.light_1.color())
-#     print(robot.light_2.color())
+#     print(robot.color_1.color())
 #     wait(100)
 # Detection.lineFollowUntilBlock(robot, 300, 100)
 

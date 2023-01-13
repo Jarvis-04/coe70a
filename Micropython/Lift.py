@@ -345,7 +345,7 @@ def elevatorReset(robot:WROrobot):
     robot.motor_2.reset_angle(0)
     robot.motor_2.run_angle(1000, -90, Stop.HOLD, True)
 
-def elevatorDrop(robot:WROrobot):
+def elevatorDrop(robot:WROrobot, blockNumber):
     """Moves the elevator a certain distance allowing a single block to drop
 
     Args:
@@ -359,4 +359,4 @@ def elevatorDrop(robot:WROrobot):
     """
     #This sets the elevator so the platforms carrying the blocks are upright and ready to be delivered,
     # first line resets elevator to base position
-    robot.motor_2.run_angle(500, -125, Stop.HOLD, True) #Second parameter(angle) needs to be tested with robot and changed accordingly
+    robot.motor_2.run_angle(500, -125*blockNumber, Stop.HOLD, True) #Second parameter(angle) needs to be tested with robot and changed accordingly

@@ -517,6 +517,72 @@ def detectBlockColor(robot:WROrobot):
     currentColor = robot.color_1.color()
     return currentColor
 
+def PIDlineFollowerUntilBlock(robot: WROrobot, distanceToTravel, speed, side):
+    """Allows robot to follow the black line on the competition mats
+
+    Args:
+        robot (robot object): A robot object
+        distanceToTravel (int): Indicates the distance robot should travel
+        speed (int): Speed of the robot
+        side (str): Indicates what side of the line robot is
+
+    Raises:
+        TypeError: distanceToTravel must be of type int
+        TypeError: speed must be of type int
+        TypeError: side must be of type str
+
+    Returns:
+        None
+
+    """
+
+    if not type(distanceToTravel) in [int]:
+        raise TypeError("distanceToTravel must be of type int")
+
+    if not type(speed) in [int]:
+        raise TypeError("speed must be of type int")
+
+    if not type(side) in [str]:
+        raise TypeError("side must be of type str")
+
+    Kp = robot.Kp
+    Ki = robot.Ki
+    Kd = robot.Kd
+    light_2 = robot.light_2
+    light_1 = robot.light_1
+    startDistance = robot.driveBase.distance()
+    distance = 0
+    error = 0
+    integral = 0
+    lastError = 0
+    derivative = 0
+    lastColor = Color.BLACK
+    consecutiveColor = 0
+
+    # Continue to follow the line until the distance the robot has travelled is equal to the travel distance specified
+    while ((distance < abs(distanceToTravel)) and (abs(distanceToTravel) >= 0)):
+        if(side == "LEFT"):
+            error = light_1.reflection() - robot.threshold
+        elif(side == "RIGHT"):
+            error = light_2.reflection() - robot.threshold
+        integral = integral + error
+        derivative = error - lastError
+        turn_rate = Kp * error + Ki * integral + Kd * derivative
+        robot.driveBase.drive(abs(speed), turn_rate *
+                              ((-1 if side == "LEFT" else 1) * -1))
+        lastError = error
+        distance = robot.driveBase.distance() - startDistance
+        color = robot.color_1.color()
+        if(color in [Color.RED, Color.BLUE]):
+            if (lastColor == color):
+                consecutiveColor += 1
+            if (consecutiveColor == 15):
+                robot.driveBase.stop()
+                print("saw block")
+                break
+        else:
+            consecutiveColor = 0
+        lastColor = color
 
 def lineFollowUntilBlock(robot: WROrobot, distanceToTravel, speed):
     """Follows line until robot reaches a block on the competition mat
@@ -560,7 +626,7 @@ def lineFollowUntilBlock(robot: WROrobot, distanceToTravel, speed):
         if(color in [Color.RED, Color.BLUE]):
             if (lastColor == color):
                 consecutiveColor += 1
-            if (consecutiveColor == 20):
+            if (consecutiveColor == 15):
                 robot.driveBase.stop()
                 print("saw block")
                 break
