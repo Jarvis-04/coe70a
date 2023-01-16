@@ -44,7 +44,7 @@ class robotSolutions:
             Movement.turnUntilLine(self.testRobot, "RIGHT")
             Movement.dualSensorPIDlineFollower(self.testRobot, 130, self.testRobot.DRIVE_SPEED)
             # Placing blue block
-            Lift.elevatorDrop(self.testRobot)
+            Lift.elevatorDrop(self.testRobot, blockNumber)
             blockNumber = blockNumber + 1
             Lift.elevatorReset(self.testRobot)
         else:
@@ -65,7 +65,7 @@ class robotSolutions:
             Movement.turnUntilLine(self.testRobot, "RIGHT")
             Movement.dualSensorPIDlineFollower(self.testRobot, 130, self.testRobot.DRIVE_SPEED)
             # Placing blue block
-            Lift.elevatorDrop(self.testRobot)
+            Lift.elevatorDrop(self.testRobot, blockNumber)
             blockNumber = blockNumber + 1
             Lift.elevatorReset(self.testRobot)
         else :
@@ -86,7 +86,7 @@ class robotSolutions:
             Movement.turnUntilLine(self.testRobot, "RIGHT")
             Movement.dualSensorPIDlineFollower(self.testRobot, 130, self.testRobot.DRIVE_SPEED)
             # Placing blue block
-            Lift.elevatorDrop(self.testRobot)
+            Lift.elevatorDrop(self.testRobot, blockNumber)
             blockNumber = blockNumber + 1
             Lift.elevatorReset(self.testRobot)
         else:
@@ -107,7 +107,7 @@ class robotSolutions:
             Movement.turnUntilLine(self.testRobot, "RIGHT")
             Movement.dualSensorPIDlineFollower(self.testRobot, 130, self.testRobot.DRIVE_SPEED)
             # Placing blue block
-            Lift.elevatorDrop(self.testRobot)
+            Lift.elevatorDrop(self.testRobot, blockNumber)
             blockNumber = blockNumber + 1
             Lift.elevatorReset(self.testRobot)
         else :
@@ -128,7 +128,7 @@ class robotSolutions:
             Movement.turnOnSpot(self.testRobot, 35)
             Movement.forwardMovement(self.testRobot, 130)
             # Placing blue block
-            Lift.elevatorDrop(self.testRobot)
+            Lift.elevatorDrop(self.testRobot, blockNumber)
             blockNumber = blockNumber + 1
             Lift.elevatorReset(self.testRobot)
         else:

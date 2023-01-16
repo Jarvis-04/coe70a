@@ -40,12 +40,19 @@ robot = RobotBody.createRobot(robotParam)
 
 # Detection.PIDlineFollowerUntilBlock(robot, 1000, 100, "LEFT")
 
-solution = Solution.robotSolutions(robot)
-Solution.robotSolutions.elementarySolution(solution)
-# # Detection.lineFollowUntilBlock(robot, 3000, 100)
+# Lift.elevatorReset(robot)
+# for x in range(1,5):
+#     Lift.elevatorDrop(robot,x)
+#     sleep(1)
+#     Lift.elevatorReset(robot)
+
+# Detection.lineFollowUntilBlock(robot, 3000, 100)
 # while (1):
 #     print(robot.color_1.color())
 #     wait(100)
 # Detection.lineFollowUntilBlock(robot, 300, 100)
+
+solution = Solution.robotSolutions(robot)
+Solution.robotSolutions.elementarySolution(solution)
 
 
