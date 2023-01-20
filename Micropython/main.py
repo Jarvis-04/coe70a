@@ -48,9 +48,10 @@ robot = RobotBody.createRobot(robotParam)
 
 # Detection.lineFollowUntilBlock(robot, 3000, 100)
 # while (1):
-#     print(robot.color_1.color())
+#     print(robot.color_1.rgb()[2])
 #     wait(100)
-# Detection.lineFollowUntilBlock(robot, 300, 100)
+# Detection.lineFollowUntilBlock(robot, 3000, 100)
+# Detection.PIDlineFollowerUntilBlock(robot, 3000, 100, "LEFT")
 
 solution = Solution.robotSolutions(robot)
 Solution.robotSolutions.elementarySolution(solution)

@@ -572,17 +572,22 @@ def PIDlineFollowerUntilBlock(robot: WROrobot, distanceToTravel, speed, side):
                               ((-1 if side == "LEFT" else 1) * -1))
         lastError = error
         distance = robot.driveBase.distance() - startDistance
-        color = robot.color_1.color()
-        if(color in [Color.RED, Color.BLUE]):
-            if (lastColor == color):
-                consecutiveColor += 1
-            if (consecutiveColor == 15):
-                robot.driveBase.stop()
-                print("saw block")
-                break
-        else:
-            consecutiveColor = 0
-        lastColor = color
+        color = robot.color_1.rgb()
+        if (color[0] >= robot.RED or color[2] >= robot.BLUE):
+            break
+        # color = robot.color_1.color()
+        # if(color in [Color.RED, Color.BLUE]):
+        #     if (lastColor == color):
+        #         consecutiveColor += 1
+        #     if (consecutiveColor == 30):
+        #         robot.driveBase.stop()
+        #         print(color)
+        #         break
+        # else:
+        #     consecutiveColor = 0
+        # lastColor = color
+    Movement.robotStop(robot)
+    return robot.driveBase.distance() - startDistance
 
 def lineFollowUntilBlock(robot: WROrobot, distanceToTravel, speed):
     """Follows line until robot reaches a block on the competition mat
@@ -622,17 +627,20 @@ def lineFollowUntilBlock(robot: WROrobot, distanceToTravel, speed):
         robot.driveBase.drive(abs(speed), turn_rate)
         lastError = error
         distance = robot.driveBase.distance() - startDistance
-        color = robot.color_1.color()
-        if(color in [Color.RED, Color.BLUE]):
-            if (lastColor == color):
-                consecutiveColor += 1
-            if (consecutiveColor == 15):
-                robot.driveBase.stop()
-                print("saw block")
-                break
-        else:
-            consecutiveColor = 0
-        lastColor = color
+        color = robot.color_1.rgb()
+        if (color[0] >= robot.RED or color[2] >= robot.BLUE):
+            break
+        # color = robot.color_1.color()
+        # if(color in [Color.RED, Color.BLUE]):
+        #     if (lastColor == color):
+        #         consecutiveColor += 1
+        #     if (consecutiveColor == 30):
+        #         robot.driveBase.stop()
+        #         print(color)
+        #         break
+        # else:
+        #     consecutiveColor = 0
+        # lastColor = color
     Movement.robotStop(robot)
     return robot.driveBase.distance() - startDistance
 

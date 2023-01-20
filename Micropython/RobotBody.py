@@ -12,10 +12,13 @@ class WROrobot:
 
     BLACK = 6
     WHITE = 54
+    # Blue and Red values that return from rgb sensor
+    BLUE = 60
+    RED = 30
     threshold = (BLACK + WHITE) / 2
     DRIVE_SPEED = 50
     # Kp = 0.5
-    Kp = 1.0
+    Kp = 0.75
     Ki = 0.005
     Kd = 0.01
 
