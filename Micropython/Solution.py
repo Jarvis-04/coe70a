@@ -136,6 +136,7 @@ class robotSolutions:
         else:
             Movement.forwardMovement(self.testRobot, 120)
             Movement.turnOnSpot(self.testRobot, 35)
+        # A new intersection function should be made that doesnt use pid line following and just goes straight
         Detection.lineFollowUntilLineIntersection(self.testRobot, 1000, self.testRobot.DRIVE_SPEED)
         Movement.forwardMovement(self.testRobot, 150)
         Detection.lineFollowUntilLineIntersection(self.testRobot, 1000, self.testRobot.DRIVE_SPEED)
