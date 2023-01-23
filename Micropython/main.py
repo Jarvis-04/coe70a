@@ -53,6 +53,10 @@ robot = RobotBody.createRobot(robotParam)
 # Detection.lineFollowUntilBlock(robot, 3000, 100)
 # Detection.PIDlineFollowerUntilBlock(robot, 3000, 100, "LEFT")
 
+# Movement.setSpeed(robot, speed = 200)
+# Movement.forwardMovement(robot, 200)
+# Movement.backwardMovement(robot, 200)
+
 solution = Solution.robotSolutions(robot)
 Solution.robotSolutions.elementarySolution(solution)
 
