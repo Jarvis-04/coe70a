@@ -360,3 +360,18 @@ def elevatorDrop(robot:WROrobot, blockNumber):
     #This sets the elevator so the platforms carrying the blocks are upright and ready to be delivered,
     # first line resets elevator to base position
     robot.motor_2.run_angle(500, -140*blockNumber, Stop.HOLD, True) #Second parameter(angle) needs to be tested with robot and changed accordingly
+
+def setHolderPosition(motor, numRotations):
+    motor.run_angle(300, numRotations*90)
+
+def seniorClaw(motor, position):
+    if (position == "open"):
+        motor.run_target(100, 90)
+    elif (position == "close"):
+        motor.run_target(100, 0)
+    elif (position == "lift"):
+        motor.run_target(100, -225)
+    elif (position == "init"):
+        motor.run_until_stalled(100)
+        motor.reset_angle(270)
+        motor.run_target(100, 0)

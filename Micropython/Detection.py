@@ -493,15 +493,6 @@ def averageColorDetect(colorSensor):
     if(index_avg_value == 6):
         return Color.BROWN
 
-#Elementary
-# def detectBlockColor(colorSensor):
-#     currentColor = colorSensor.color()
-#     if (currentColor == Color.BLUE):
-#         return Color.BLUE
-#         # should be replaced with swap block or continue paths
-#     elif (currentColor == Color.RED):
-#         return Color.RED
-
 def detectBlockColor(robot:WROrobot):
     """Measures the color of a surface and returns a color
 
@@ -575,17 +566,6 @@ def PIDlineFollowerUntilBlock(robot: WROrobot, distanceToTravel, speed, side):
         color = robot.color_1.rgb()
         if (color[0] >= robot.RED or color[2] >= robot.BLUE):
             break
-        # color = robot.color_1.color()
-        # if(color in [Color.RED, Color.BLUE]):
-        #     if (lastColor == color):
-        #         consecutiveColor += 1
-        #     if (consecutiveColor == 30):
-        #         robot.driveBase.stop()
-        #         print(color)
-        #         break
-        # else:
-        #     consecutiveColor = 0
-        # lastColor = color
     Movement.robotStop(robot)
     return robot.driveBase.distance() - startDistance
 
@@ -630,17 +610,6 @@ def lineFollowUntilBlock(robot: WROrobot, distanceToTravel, speed):
         color = robot.color_1.rgb()
         if (color[0] >= robot.RED or color[2] >= robot.BLUE):
             break
-        # color = robot.color_1.color()
-        # if(color in [Color.RED, Color.BLUE]):
-        #     if (lastColor == color):
-        #         consecutiveColor += 1
-        #     if (consecutiveColor == 30):
-        #         robot.driveBase.stop()
-        #         print(color)
-        #         break
-        # else:
-        #     consecutiveColor = 0
-        # lastColor = color
     Movement.robotStop(robot)
     return robot.driveBase.distance() - startDistance
 
