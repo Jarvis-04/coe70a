@@ -370,6 +370,8 @@ def seniorClaw(motor, position):
     elif (position == "close"):
         motor.run_target(100, 0)
     elif (position == "lift"):
+        motor.run_target(100, -130)
+    elif (position == "depress"):
         motor.run_target(100, -225)
     elif (position == "init"):
         motor.run_until_stalled(100)

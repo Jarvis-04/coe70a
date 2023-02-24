@@ -50,7 +50,7 @@ robotParam["color_1"] = ColorSensor(Port.S2)
 robotParam["color_2"] = ColorSensor(Port.S4)
 robotParam["motor_1"] = Motor(Port.A)
 robotParam["motor_2"] = Motor(Port.D)
-robotParam["driveBase"] = DriveBase(Motor(Port.B), Motor(Port.C), wheel_diameter=56, axle_track=184.0)
+robotParam["driveBase"] = DriveBase(Motor(Port.B, Direction.COUNTERCLOCKWISE), Motor(Port.C, Direction.COUNTERCLOCKWISE), wheel_diameter=50, axle_track=184.0)
 robot = RobotBody.createRobot(robotParam)
 
 solution = Solution.robotSolutions(robot)
