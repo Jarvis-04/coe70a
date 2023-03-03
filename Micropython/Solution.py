@@ -680,14 +680,19 @@ class robotSolutions:
             self.testRobot.currentLeftDropOff = None
 
     def seniorSolution2016(self):
-        Lift.seniorClaw(self.testRobot.motor_1, "init")
+        Lift.seniorClaw2016(self.testRobot, "init")
         Movement.setSpeed(robot = self.testRobot, speed = 200)
         Detection.stopOnLine(robot = self.testRobot, speed = self.testRobot.DRIVE_SPEED)
         Movement.forwardMovement(self.testRobot, 100)
         Movement.turnUntilLine(self.testRobot, "LEFT")
-        Movement.dualSensorPIDlineFollower(self.testRobot, 130, self.testRobot.DRIVE_SPEED)
+        Detection.lineFollowUntilTurn(self.testRobot, 300, self.testRobot.DRIVE_SPEED, "right")
+        Movement.forwardMovement(self.testRobot, 50)
         Movement.turnOnSpot(self.testRobot, -90)
-        Lift.seniorClaw(self.testRobot.motor_1, "open")
-        Movement.backwardMovement(self.testRobot, 120)
-        Lift.seniorClaw(self.testRobot.motor_1, "lift")
+        Lift.seniorClaw2016(self.testRobot, "open")
+        Movement.backwardMovement(self.testRobot, 115)
+        Lift.seniorClaw2016(self.testRobot, "lift")
         # check block color and correct if nessesary
+        Detection.detectBucketColor(self.testRobot)
+        Lift.seniorClaw2016(self.testRobot, "open")
+        Movement.forwardMovement(self.testRobot, 115)
+        Lift.seniorClaw2016(self.testRobot, "close")

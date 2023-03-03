@@ -364,16 +364,16 @@ def elevatorDrop(robot:WROrobot, blockNumber):
 def setHolderPosition(motor, numRotations):
     motor.run_angle(300, numRotations*90)
 
-def seniorClaw(motor, position):
+def seniorClaw2016(robot, position):
     if (position == "open"):
-        motor.run_target(100, 90)
+        robot.motor_1.run_target(100, 90)
     elif (position == "close"):
-        motor.run_target(100, 0)
+        robot.motor_1.run_target(100, 0)
     elif (position == "lift"):
-        motor.run_target(100, -130)
+        robot.motor_1.run_target(100, -135)
     elif (position == "depress"):
-        motor.run_target(100, -225)
+        robot.motor_1.run_target(100, -225)
     elif (position == "init"):
-        motor.run_until_stalled(100)
-        motor.reset_angle(270)
-        motor.run_target(100, 0)
+        robot.motor_1.run_until_stalled(100)
+        robot.motor_1.reset_angle(270)
+        robot.motor_1.run_target(100, 0)

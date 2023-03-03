@@ -53,5 +53,11 @@ robotParam["motor_2"] = Motor(Port.D)
 robotParam["driveBase"] = DriveBase(Motor(Port.B, Direction.COUNTERCLOCKWISE), Motor(Port.C, Direction.COUNTERCLOCKWISE), wheel_diameter=50, axle_track=184.0)
 robot = RobotBody.createRobot(robotParam)
 
-solution = Solution.robotSolutions(robot)
-Solution.robotSolutions.seniorSolution2016(solution)
+# solution = Solution.robotSolutions(robot)
+# Solution.robotSolutions.seniorSolution2016(solution)
+
+Movement.setSpeed(robot, 200)
+Movement.nodeTraversal2016(robot, "yellow", "blue")
+# Movement.backwardMovement(robot, 300)
+wait(3000)
+# Movement.nodeTraversal2016(robot, "yellow", "green")

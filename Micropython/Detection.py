@@ -595,8 +595,6 @@ def lineFollowUntilBlock(robot: WROrobot, distanceToTravel, speed):
     integral = 0
     lastError = 0
     derivative = 0
-    lastColor = Color.BLACK
-    consecutiveColor = 0
 
     # Continue to follow the line until the distance the robot has travelled is equal to the travel distance specified
     while ((distance < abs(distanceToTravel)) and (abs(distanceToTravel) >= 0)):
@@ -625,3 +623,118 @@ def forwardMovementUntilSolidColor(robot: WROrobot, distanceToTravel, speed):
             break
     Movement.robotStop(robot)
     return robot.driveBase.distance() - startDistance
+
+def lineFollowUntilTurn(robot: WROrobot, distanceToTravel, speed, side):
+    """Follows line until robot reaches a turn on the competition mat
+
+    Args:
+        robot (robot object): A robot object
+        distanceToTravel (int): Indicates the distance robot should travel
+        speed (int): Speed of the robot
+
+    Raises:
+        None
+
+    Returns:
+        None
+    """
+
+    Kp = robot.Kp
+    Ki = robot.Ki
+    Kd = robot.Kd
+    light_2 = robot.light_2
+    light_1 = robot.light_1
+    startDistance = robot.driveBase.distance()
+    distance = 0
+    error = 0
+    integral = 0
+    lastError = 0
+    derivative = 0
+    threshold = 10
+
+    # Continue to follow the line until the distance the robot has travelled is equal to the travel distance specified
+    while ((distance < abs(distanceToTravel)) and (abs(distanceToTravel) >= 0)):
+        error = light_1.reflection() - light_2.reflection()
+        integral = integral + error
+        derivative = error - lastError
+        turn_rate = Kp * error + Ki * integral + Kd * derivative
+        robot.driveBase.drive(abs(speed), turn_rate)
+        lastError = error
+        distance = robot.driveBase.distance() - startDistance
+        if (side == "left"):
+            if (light_1.reflection() < threshold):
+                Movement.robotStop(robot)
+                return robot.driveBase.distance() - startDistance
+        else :
+            if (light_2.reflection() < threshold):
+                Movement.robotStop(robot)
+                return robot.driveBase.distance() - startDistance
+    Movement.robotStop(robot)
+    return robot.driveBase.distance() - startDistance
+
+def PIDlineFollowUntilTurn(robot: WROrobot, distanceToTravel, speed, side):
+    """Allows robot to follow the black line on the competition mats
+
+    Args:
+        robot (robot object): A robot object
+        distanceToTravel (int): Indicates the distance robot should travel
+        speed (int): Speed of the robot
+        side (str): Indicates what side of the line robot is
+
+    Raises:
+        TypeError: distanceToTravel must be of type int
+        TypeError: speed must be of type int
+        TypeError: side must be of type str
+
+    Returns:
+        None
+
+    """
+
+    if not type(distanceToTravel) in [int]:
+        raise TypeError("distanceToTravel must be of type int")
+
+    if not type(speed) in [int]:
+        raise TypeError("speed must be of type int")
+
+    if not type(side) in [str]:
+        raise TypeError("side must be of type str")
+
+    Kp = robot.Kp
+    Ki = robot.Ki
+    Kd = robot.Kd
+    light_2 = robot.light_2
+    light_1 = robot.light_1
+    startDistance = robot.driveBase.distance()
+    distance = 0
+    error = 0
+    integral = 0
+    lastError = 0
+    derivative = 0
+    threshold = 10
+
+    # Continue to follow the line until the distance the robot has travelled is equal to the travel distance specified
+    while ((distance < abs(distanceToTravel)) and (abs(distanceToTravel) >= 0)):
+        print(light_1.reflection())
+        if(side == "LEFT"):
+            error = light_2.reflection() - robot.threshold
+            if (light_1.reflection() < threshold):
+                Movement.robotStop(robot)
+                return robot.driveBase.distance() - startDistance
+        elif(side == "RIGHT"):
+            error = light_1.reflection() - robot.threshold
+            if (light_2.reflection() < threshold):
+                Movement.robotStop(robot)
+                return robot.driveBase.distance() - startDistance
+        integral = integral + error
+        derivative = error - lastError
+        turn_rate = Kp * error + Ki * integral + Kd * derivative
+        robot.driveBase.drive(abs(speed), turn_rate *
+                              ((-1 if side == "RIGHT" else 1) * -1))
+        lastError = error
+        distance = robot.driveBase.distance() - startDistance
+    Movement.robotStop(robot)
+    return robot.driveBase.distance() - startDistance
+
+def detectBucketColor(robot):
+    return robot.color_2.color()
