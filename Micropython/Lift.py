@@ -371,9 +371,12 @@ def seniorClaw2016(robot, position):
         robot.motor_1.run_target(100, 0)
     elif (position == "lift"):
         robot.motor_1.run_target(100, -135)
+    elif (position == "drop"):
+        robot.motor_1.run_target(100, 135)
     elif (position == "depress"):
         robot.motor_1.run_target(100, -225)
     elif (position == "init"):
         robot.motor_1.run_until_stalled(100)
         robot.motor_1.reset_angle(270)
         robot.motor_1.run_target(100, 0)
+

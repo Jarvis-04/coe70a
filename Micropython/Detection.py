@@ -736,5 +736,8 @@ def PIDlineFollowUntilTurn(robot: WROrobot, distanceToTravel, speed, side):
     Movement.robotStop(robot)
     return robot.driveBase.distance() - startDistance
 
-def detectBucketColor(robot):
-    return robot.color_2.color()
+def detectBlockColor2016(robot, item):
+    if (item == "container"):
+        return robot.color_2.color()
+    elif (item == "tank"):
+        return robot.color_1.color()

@@ -680,19 +680,30 @@ class robotSolutions:
             self.testRobot.currentLeftDropOff = None
 
     def seniorSolution2016(self):
+        # Initialize and get to first container
         Lift.seniorClaw2016(self.testRobot, "init")
         Movement.setSpeed(robot = self.testRobot, speed = 200)
         Detection.stopOnLine(robot = self.testRobot, speed = self.testRobot.DRIVE_SPEED)
         Movement.forwardMovement(self.testRobot, 100)
         Movement.turnUntilLine(self.testRobot, "LEFT")
+        Movement.forwardMovement(self.testRobot, 5)
         Detection.lineFollowUntilTurn(self.testRobot, 300, self.testRobot.DRIVE_SPEED, "right")
+        # First Container 
         Movement.forwardMovement(self.testRobot, 50)
         Movement.turnOnSpot(self.testRobot, -90)
         Lift.seniorClaw2016(self.testRobot, "open")
         Movement.backwardMovement(self.testRobot, 115)
         Lift.seniorClaw2016(self.testRobot, "lift")
         # check block color and correct if nessesary
-        Detection.detectBucketColor(self.testRobot)
-        Lift.seniorClaw2016(self.testRobot, "open")
-        Movement.forwardMovement(self.testRobot, 115)
-        Lift.seniorClaw2016(self.testRobot, "close")
+        currentContainerColor = Detection.detectBlockColor2016(self.testRobot, "container")
+        if (currentContainerColor == Color.GREEN):
+            Lift.seniorClaw2016(self.testRobot, "drop")
+            Lift.seniorClaw2016(self.testRobot, "open")
+            sleep(1)
+            Movement.forwardMovement(self.testRobot, 90)
+            Lift.seniorClaw2016(robot, "close")
+            Movement.nodeTraversal2016(self.testRobot, "green", "red")
+        else:
+            Movement.forwardMovement(self.testRobot, 90)
+            Movement.nodeTraversal2016(self.testRobot, "green", "red")
+        # Second Container 
