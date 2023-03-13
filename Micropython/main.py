@@ -50,9 +50,20 @@ robotParam["color_1"] = ColorSensor(Port.S2)
 robotParam["color_2"] = ColorSensor(Port.S4)
 robotParam["motor_1"] = Motor(Port.A)
 robotParam["motor_2"] = Motor(Port.D)
-robotParam["driveBase"] = DriveBase(Motor(Port.B, Direction.COUNTERCLOCKWISE), Motor(Port.C, Direction.COUNTERCLOCKWISE), wheel_diameter=50, axle_track=184.0)
+robotParam["driveBase"] = DriveBase(Motor(Port.B, Direction.COUNTERCLOCKWISE), Motor(Port.C, Direction.COUNTERCLOCKWISE), wheel_diameter=55, axle_track=135.0)
 robot = RobotBody.createRobot(robotParam)
 
+
+# while(1):
+#     print(robot.color_2.color())
+#     wait(500)
+# Lift.seniorClaw2016(robot, "init")
+# Lift.seniorClaw2016(robot, "lift")
+# print(robot.color_2.color())
+# wait(100000)
+# Lift.seniorClaw2016(robot, "init")
+# Movement.setSpeed(robot, speed = 200)
+# Movement.nodeTraversal2016(robot, Color.GREEN, Color.RED)
 solution = Solution.robotSolutions(robot)
 Solution.robotSolutions.seniorSolution2016(solution)
 

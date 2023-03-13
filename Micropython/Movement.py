@@ -521,11 +521,15 @@ def branchTraversal(robot: WROrobot, speed):
     return TurbineBaseTechnologyDecider
 
 def nodeTraversal2016(robot, startingNode, endingNode):
-    nodeLookup = {"green":1, "red":2, "blue":3, "yellow":4}
+    if (startingNode == Color.BROWN):
+        startingNode = Color.RED
+    if (endingNode == Color.BROWN):
+        endingNode = Color.RED
+    nodeLookup = {Color.GREEN:1, Color.RED:2, Color.BLUE:3, Color.YELLOW:4}
 
     forwardMovement(robot, 40)
     if (nodeLookup[startingNode] < nodeLookup[endingNode]):
-        if (startingNode == "green" or startingNode == "blue"):
+        if (startingNode == Color.GREEN or startingNode == Color.BLUE):
             turnOnSpot(robot, 50)
             turnUntilLine(robot, "RIGHT")
             turnOnSpot(robot, -10)
@@ -534,7 +538,7 @@ def nodeTraversal2016(robot, startingNode, endingNode):
             turnUntilLine(robot, "LEFT")
             turnOnSpot(robot, 10)
     else :
-        if (startingNode == "yellow" or startingNode == "red"):
+        if (startingNode == Color.YELLOW or startingNode == Color.RED):
             turnOnSpot(robot, 50)
             turnUntilLine(robot, "RIGHT")
             turnOnSpot(robot, -10)
@@ -545,41 +549,40 @@ def nodeTraversal2016(robot, startingNode, endingNode):
     # dualSensorPIDlineFollower(robot, 25, robot.DRIVE_SPEED)
     if (abs(nodeLookup[startingNode]-nodeLookup[endingNode]) == 3):
         Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
-        print("stop1")
         forwardMovement(robot, 50)
         Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
-        forwardMovement(robot, 250)
-        turnOnSpot(robot, 75)
+        forwardMovement(robot, 240)
+        turnOnSpot(robot, 90)
     elif (abs(nodeLookup[startingNode]-nodeLookup[endingNode]) == 2):
-        if (startingNode == "yellow" or startingNode == "green"):
+        if (startingNode == Color.YELLOW or startingNode == Color.GREEN):
             Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "RIGHT")
-            turnOnSpot(robot, -75)
+            turnOnSpot(robot, -90)
         else:
             Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
-            forwardMovement(robot, 250)
-            turnOnSpot(robot, 75)
+            forwardMovement(robot, 240)
+            turnOnSpot(robot, 90)
     elif (abs(nodeLookup[startingNode]-nodeLookup[endingNode]) == 1):
         if (nodeLookup[startingNode] < nodeLookup[endingNode]):
-            if (startingNode == "green" or startingNode == "blue"):
+            if (startingNode == Color.GREEN or startingNode == Color.BLUE):
                 Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
-                forwardMovement(robot, 250)
-                turnOnSpot(robot, 75)
+                forwardMovement(robot, 240)
+                turnOnSpot(robot, 90)
             else:
                 Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "RIGHT")
                 # forwardMovement(robot, 50)
-                turnOnSpot(robot, -75)
+                turnOnSpot(robot, -90)
         else:
-            if (startingNode == "yellow" or startingNode == "red"):
+            if (startingNode == Color.YELLOW or startingNode == Color.RED):
                 Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
-                forwardMovement(robot, 250)
-                turnOnSpot(robot, 75)
+                forwardMovement(robot, 240)
+                turnOnSpot(robot, 90)
             else:
                 Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "RIGHT")
                 # forwardMovement(robot, 50)
-                turnOnSpot(robot, -75)
+                turnOnSpot(robot, -90)
 
-    if (endingNode == "yellow" or endingNode == "blue"):
-        backwardMovement(robot, 75)
+    if (endingNode == Color.YELLOW or endingNode == Color.BLUE):
+        backwardMovement(robot, 150)
     else:
-        backwardMovement(robot, 50)
+        backwardMovement(robot, 40)
 

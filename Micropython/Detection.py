@@ -715,7 +715,6 @@ def PIDlineFollowUntilTurn(robot: WROrobot, distanceToTravel, speed, side):
 
     # Continue to follow the line until the distance the robot has travelled is equal to the travel distance specified
     while ((distance < abs(distanceToTravel)) and (abs(distanceToTravel) >= 0)):
-        print(light_1.reflection())
         if(side == "LEFT"):
             error = light_2.reflection() - robot.threshold
             if (light_1.reflection() < threshold):
@@ -738,6 +737,7 @@ def PIDlineFollowUntilTurn(robot: WROrobot, distanceToTravel, speed, side):
 
 def detectBlockColor2016(robot, item):
     if (item == "container"):
+        print(robot.color_2.color())
         return robot.color_2.color()
     elif (item == "tank"):
         return robot.color_1.color()
