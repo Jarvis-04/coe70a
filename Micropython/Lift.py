@@ -370,10 +370,10 @@ def seniorClaw2016(robot, position):
     elif (position == "close"):
         robot.motor_1.run_target(100, 0)
     elif (position == "lift"):
-        robot.motor_1.run_target(100, -125)
-        # robot.motor_1.run_until_stalled(-100)
+        robot.motor_1.run_target(100, -145)
+        # robot.motor_1.run_until_stalled(-100, Stop.HOLD)
     elif (position == "drop"):
-        robot.motor_1.run_target(100, 135)
+        robot.motor_1.run_target(100, 145)
     elif (position == "depress"):
         robot.motor_1.run_target(100, -225)
     elif (position == "init"):

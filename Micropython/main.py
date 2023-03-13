@@ -64,6 +64,7 @@ robot = RobotBody.createRobot(robotParam)
 # Lift.seniorClaw2016(robot, "init")
 # Movement.setSpeed(robot, speed = 200)
 # Movement.nodeTraversal2016(robot, Color.GREEN, Color.RED)
+
 solution = Solution.robotSolutions(robot)
 Solution.robotSolutions.seniorSolution2016(solution)
 
@@ -74,8 +75,12 @@ Solution.robotSolutions.seniorSolution2016(solution)
 # Movement.nodeTraversal2016(robot, "yellow", "green")
 
 # Lift.seniorClaw2016(robot, "lift")
-# currentContainerColor = Detection.detectBlockColor2016(robot, "container")
-# print(currentContainerColor)
+# x = 1
+# while (x == 1):
+#     currentContainerColor = Detection.detectBlockReflection2016(robot, "container")
+#     currentRGB = Detection.getBlockReflection2016(robot, "container")
+#     print(currentContainerColor)
+#     print(currentRGB)
 # if (currentContainerColor == Color.GREEN):
 #     Lift.seniorClaw2016(robot, "drop")
 #     Lift.seniorClaw2016(robot, "open")
