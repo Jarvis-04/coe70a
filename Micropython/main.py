@@ -68,10 +68,12 @@ robot = RobotBody.createRobot(robotParam)
 solution = Solution.robotSolutions(robot)
 Solution.robotSolutions.seniorSolution2016(solution)
 
+# Movement.turnOnSpot(robot, -90)
+
 # Movement.setSpeed(robot, 200)
 # Movement.nodeTraversal2016(robot, "yellow", "blue")
 # Movement.backwardMovements(robot, 300)
-# wait(3000)
+# wait(3000)  
 # Movement.nodeTraversal2016(robot, "yellow", "green")
 
 # Lift.seniorClaw2016(robot, "lift")

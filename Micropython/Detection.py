@@ -755,13 +755,13 @@ def detectBlockReflection2016(robot, item):
     elif (item == "tank"):
         colorSensor = robot.color_1
 
-    if (colorSensor.rgb()[0] in range(30,36)) and (colorSensor.rgb()[1] in range(29, 33)) and (colorSensor.rgb()[2] in range(12, 17)):
+    if (colorSensor.rgb()[0] in range(15,28)) and (colorSensor.rgb()[1] in range(15, 28)) and (colorSensor.rgb()[2] in range(5, 15)):
         return Color.YELLOW
     elif (colorSensor.rgb()[0] in range(0,6)) and (colorSensor.rgb()[1] in range(3, 17)) and (colorSensor.rgb()[2] in range(19, 33)):
         return Color.BLUE
-    elif (colorSensor.rgb()[0] in range(0,5)) and (colorSensor.rgb()[1] in range(10, 25)) and (colorSensor.rgb()[2] in range(4, 20)):
+    elif (colorSensor.rgb()[0] in range(0,5)) and (colorSensor.rgb()[1] in range(5, 25)) and (colorSensor.rgb()[2] in range(4, 40)):
         return Color.GREEN
-    elif (colorSensor.rgb()[0] in range(25,31)) and (colorSensor.rgb()[1] in range(4, 10)) and (colorSensor.rgb()[2] in range(10, 15)):
+    elif (colorSensor.rgb()[0] in range(8,18)) and (colorSensor.rgb()[1] in range(0, 10)) and (colorSensor.rgb()[2] in range(0, 10)):
         return Color.RED
     else:
         return None

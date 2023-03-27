@@ -682,16 +682,16 @@ class robotSolutions:
     def seniorSolution2016(self):
         # Initialize and get to first container
         Lift.seniorClaw2016(self.testRobot, "init")
-        Movement.setSpeed(robot = self.testRobot, speed = 200)
+        Movement.setSpeed(robot = self.testRobot, speed = 150)
         Detection.stopOnLine(robot = self.testRobot, speed = self.testRobot.DRIVE_SPEED)
         Movement.forwardMovement(self.testRobot, 100)
         Movement.turnUntilLine(self.testRobot, "LEFT")
         Movement.turnOnSpot(self.testRobot, 10)
         Detection.lineFollowUntilTurn(self.testRobot, 300, self.testRobot.DRIVE_SPEED, "right")
         # First Container
-        Movement.turnOnSpot(self.testRobot, -95)
+        Movement.turnOnSpot(self.testRobot, -100)
         Lift.seniorClaw2016(self.testRobot, "open")
-        Movement.backwardMovement(self.testRobot, 90)
+        Movement.backwardMovement(self.testRobot, 95)
         Lift.seniorClaw2016(self.testRobot, "lift")
         # check block color and correct if nessesary
         wait(1000)
@@ -706,19 +706,21 @@ class robotSolutions:
             sleep(1)
             Movement.forwardMovement(self.testRobot, 90)
             Lift.seniorClaw2016(self.testRobot, "close")
+            sleep(1)
             Movement.nodeTraversal2016(self.testRobot, Color.GREEN, Color.RED)
         else:
             carryingBlock = 1
             Movement.forwardMovement(self.testRobot, 90)
+            sleep(1)
             Movement.nodeTraversal2016(self.testRobot, Color.GREEN, currentContainerColor)
         # Second Container
         Lift.seniorClaw2016(self.testRobot, "drop")
         Lift.seniorClaw2016(self.testRobot, "open")
-        Movement.backwardMovement(self.testRobot, 60)
+        Movement.backwardMovement(self.testRobot, 90)
         Lift.seniorClaw2016(self.testRobot, "lift")
         if (carryingBlock == 1):
-            Movement.backwardMovement(self.testRobot, 50)
-            Movement.forwardMovement(self.testRobot, 50)
+            Movement.backwardMovement(self.testRobot, 80)
+            Movement.forwardMovement(self.testRobot, 80)
         # check block color and correct if nessesary
         wait(1000)
         prevContainerColor = currentContainerColor
@@ -726,7 +728,69 @@ class robotSolutions:
         currentContainerColor = Detection.detectBlockReflection2016(self.testRobot, "container")
         print(currentRGB)
         print(currentContainerColor)
-        if (currentContainerColor == Color.RED):
+        if (currentContainerColor == prevContainerColor):
+            Lift.seniorClaw2016(self.testRobot, "drop")
+            Lift.seniorClaw2016(self.testRobot, "open")
+            sleep(1)
+            Movement.forwardMovement(self.testRobot, 120)
+            Lift.seniorClaw2016(self.testRobot, "close")
+            sleep(1)
+            Movement.nodeTraversal2016(self.testRobot, Color.RED, Color.BLUE)
+        else:
+            carryingBlock = 1
+            Movement.forwardMovement(self.testRobot, 120)
+            sleep(1)
+            Movement.nodeTraversal2016(self.testRobot, prevContainerColor, currentContainerColor)
+        # Third Container
+        Movement.turnOnSpot(self.testRobot, 10) # THIS IS TO ADJUST FOR TRAVERSAL FROM YELLOW TO BLUE, nodeTraversal may need to be adjusted
+        Movement.forwardMovement(self.testRobot, 10) # SAME AS ABOVE
+        Lift.seniorClaw2016(self.testRobot, "drop")
+        Lift.seniorClaw2016(self.testRobot, "open")
+        Movement.backwardMovement(self.testRobot, 90)
+        Lift.seniorClaw2016(self.testRobot, "lift")
+        if (carryingBlock == 1):
+            Movement.backwardMovement(self.testRobot, 80)
+            Movement.forwardMovement(self.testRobot, 80)
+        # check block color and correct if nessesary
+        wait(1000)
+        prevContainerColor = currentContainerColor
+        currentContainerColor = Detection.detectBlockReflection2016(self.testRobot, "container")
+        currentRGB = Detection.getBlockReflection2016(self.testRobot, "container")
+        currentContainerColor = Detection.detectBlockReflection2016(self.testRobot, "container")
+        print(currentRGB)
+        print(currentContainerColor)
+        if (currentContainerColor == prevContainerColor):
+            Lift.seniorClaw2016(self.testRobot, "drop")
+            Lift.seniorClaw2016(self.testRobot, "open")
+            sleep(1)
+            Movement.forwardMovement(self.testRobot, 140)
+            Lift.seniorClaw2016(self.testRobot, "close")
+            sleep(1)
+            Movement.nodeTraversal2016(self.testRobot, Color.RED, Color.BLUE)
+        else:
+            carryingBlock = 1
+            Movement.forwardMovement(self.testRobot, 140)
+            sleep(1)
+            Movement.nodeTraversal2016(self.testRobot, prevContainerColor, currentContainerColor)
+        # Fourth Container
+        Movement.turnOnSpot(self.testRobot, -10) # THIS IS TO ADJUST FOR TRAVERSAL FROM BLUE TO RED, nodeTraversal may need to be adjusted
+        Movement.forwardMovement(self.testRobot, 15) # SAME AS ABOVE
+        Lift.seniorClaw2016(self.testRobot, "drop")
+        Lift.seniorClaw2016(self.testRobot, "open")
+        Movement.backwardMovement(self.testRobot, 90)
+        Lift.seniorClaw2016(self.testRobot, "lift")
+        if (carryingBlock == 1):
+            Movement.backwardMovement(self.testRobot, 80)
+            Movement.forwardMovement(self.testRobot, 80)
+        # check block color and correct if nessesary
+        wait(1000)
+        prevContainerColor = currentContainerColor
+        currentRGB = Detection.getBlockReflection2016(self.testRobot, "container")
+        currentContainerColor = Detection.detectBlockReflection2016(self.testRobot, "container")
+        print(currentRGB)
+        print(currentContainerColor)
+        currentContainerColor = Detection.detectBlockReflection2016(self.testRobot, "container")
+        if (currentContainerColor == prevContainerColor):
             Lift.seniorClaw2016(self.testRobot, "drop")
             Lift.seniorClaw2016(self.testRobot, "open")
             sleep(1)
@@ -737,47 +801,3 @@ class robotSolutions:
             carryingBlock = 1
             Movement.forwardMovement(self.testRobot, 90)
             Movement.nodeTraversal2016(self.testRobot, prevContainerColor, currentContainerColor)
-        # # Third Container
-        # Lift.seniorClaw2016(self.testRobot, "open")
-        # Movement.backwardMovement(self.testRobot, 70)
-        # Lift.seniorClaw2016(self.testRobot, "lift")
-        # if (carryingBlock == 1):
-        #     Movement.backwardMovement(self.testRobot, 50)
-        #     Movement.forwardMovement(self.testRobot, 50)
-        # # check block color and correct if nessesary
-        # wait(1000)
-        # prevContainerColor = currentContainerColor
-        # currentContainerColor = Detection.detectBlockReflection2016(self.testRobot, "container")
-        # if (currentContainerColor == Color.RED):
-        #     Lift.seniorClaw2016(self.testRobot, "drop")
-        #     Lift.seniorClaw2016(self.testRobot, "open")
-        #     sleep(1)
-        #     Movement.forwardMovement(self.testRobot, 90)
-        #     Lift.seniorClaw2016(self.testRobot, "close")
-        #     Movement.nodeTraversal2016(self.testRobot, Color.RED, Color.BLUE)
-        # else:
-        #     carryingBlock = 1
-        #     Movement.forwardMovement(self.testRobot, 90)
-        #     Movement.nodeTraversal2016(self.testRobot, prevContainerColor, currentContainerColor)
-        # # Fourth Container
-        # Lift.seniorClaw2016(self.testRobot, "open")
-        # Movement.backwardMovement(self.testRobot, 70)
-        # Lift.seniorClaw2016(self.testRobot, "lift")
-        # if (carryingBlock == 1):
-        #     Movement.backwardMovement(self.testRobot, 50)
-        #     Movement.forwardMovement(self.testRobot, 50)
-        # # check block color and correct if nessesary
-        # wait(1000)
-        # prevContainerColor = currentContainerColor
-        # currentContainerColor = Detection.detectBlockReflection2016(self.testRobot, "container")
-        # if (currentContainerColor == Color.RED):
-        #     Lift.seniorClaw2016(self.testRobot, "drop")
-        #     Lift.seniorClaw2016(self.testRobot, "open")
-        #     sleep(1)
-        #     Movement.forwardMovement(self.testRobot, 90)
-        #     Lift.seniorClaw2016(self.testRobot, "close")
-        #     Movement.nodeTraversal2016(self.testRobot, Color.RED, Color.BLUE)
-        # else:
-        #     carryingBlock = 1
-        #     Movement.forwardMovement(self.testRobot, 90)
-        #     Movement.nodeTraversal2016(self.testRobot, prevContainerColor, currentContainerColor)
