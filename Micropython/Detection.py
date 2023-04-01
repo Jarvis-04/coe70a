@@ -755,16 +755,30 @@ def detectBlockReflection2016(robot, item):
     elif (item == "tank"):
         colorSensor = robot.color_1
 
-    if (colorSensor.rgb()[0] in range(15,28)) and (colorSensor.rgb()[1] in range(15, 28)) and (colorSensor.rgb()[2] in range(5, 15)):
-        return Color.YELLOW
-    elif (colorSensor.rgb()[0] in range(0,6)) and (colorSensor.rgb()[1] in range(3, 17)) and (colorSensor.rgb()[2] in range(19, 33)):
+    red = colorSensor.rgb()[0]
+    green = colorSensor.rgb()[1]
+    blue = colorSensor.rgb()[2]
+    threshold = 5
+
+    if ((blue > red) & (blue > green)):
         return Color.BLUE
-    elif (colorSensor.rgb()[0] in range(0,5)) and (colorSensor.rgb()[1] in range(5, 25)) and (colorSensor.rgb()[2] in range(4, 40)):
-        return Color.GREEN
-    elif (colorSensor.rgb()[0] in range(8,18)) and (colorSensor.rgb()[1] in range(0, 10)) and (colorSensor.rgb()[2] in range(0, 10)):
+    elif ((red-green>threshold) & (red-blue>threshold)):
         return Color.RED
-    else:
-        return None
+    elif ((green-red>threshold) & (green-blue>threshold)):
+        return Color.GREEN
+    elif ((red-green) < threshold):
+        return Color.YELLOW
+    return None
+    # if (colorSensor.rgb()[0] in range(15,28)) and (colorSensor.rgb()[1] in range(15, 28)) and (colorSensor.rgb()[2] in range(5, 15)):
+    #     return Color.YELLOW
+    # elif (colorSensor.rgb()[0] in range(0,6)) and (colorSensor.rgb()[1] in range(3, 17)) and (colorSensor.rgb()[2] in range(19, 33)):
+    #     return Color.BLUE
+    # elif (colorSensor.rgb()[0] in range(0,5)) and (colorSensor.rgb()[1] in range(5, 25)) and (colorSensor.rgb()[2] in range(4, 40)):
+    #     return Color.GREEN
+    # elif (colorSensor.rgb()[0] in range(8,18)) and (colorSensor.rgb()[1] in range(0, 10)) and (colorSensor.rgb()[2] in range(0, 10)):
+    #     return Color.RED
+    # else:
+    #     return None
 
 # Yellow (40, 40, 20)
 # Blue (3, 15, 60)

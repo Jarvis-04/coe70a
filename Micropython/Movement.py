@@ -521,11 +521,11 @@ def branchTraversal(robot: WROrobot, speed):
     return TurbineBaseTechnologyDecider
 
 def nodeTraversal2016(robot, startingNode, endingNode):
-    if (startingNode == Color.BROWN):
-        startingNode = Color.RED
-    if (endingNode == Color.BROWN):
-        endingNode = Color.RED
     nodeLookup = {Color.GREEN:1, Color.RED:2, Color.BLUE:3, Color.YELLOW:4}
+
+    if (startingNode == Color.BLUE or startingNode == Color.YELLOW):
+        Detection.stopOnLine(robot, robot.DRIVE_SPEED)
+        forwardMovement(robot, 30)
 
     forwardMovement(robot, 40)
     if (nodeLookup[startingNode] < nodeLookup[endingNode]):
@@ -533,56 +533,77 @@ def nodeTraversal2016(robot, startingNode, endingNode):
             turnOnSpot(robot, 50)
             turnUntilLine(robot, "RIGHT")
             turnOnSpot(robot, -10)
+            forwardMovement(robot, 30)
         else:
             turnOnSpot(robot, -50)
             turnUntilLine(robot, "LEFT")
-            turnOnSpot(robot, 10)
+            backwardMovement(robot, 200)
+            turnOnSpot(robot, 5)
     else :
         if (startingNode == Color.YELLOW or startingNode == Color.RED):
             turnOnSpot(robot, 50)
             turnUntilLine(robot, "RIGHT")
             turnOnSpot(robot, -10)
+            forwardMovement(robot, 30)
         else:
+            forwardMovement(robot, 40)
             turnOnSpot(robot, -50)
             turnUntilLine(robot, "LEFT")
-            turnOnSpot(robot, 10)
-    # dualSensorPIDlineFollower(robot, 25, robot.DRIVE_SPEED)
+            backwardMovement(robot, 200)
+            turnOnSpot(robot, 5)
     if (abs(nodeLookup[startingNode]-nodeLookup[endingNode]) == 3):
         Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
         forwardMovement(robot, 50)
         Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
-        forwardMovement(robot, 240)
-        turnOnSpot(robot, 90)
+        PIDlineFollower(robot, 230, robot.DRIVE_SPEED, "RIGHT")
+        turnOnSpot(robot, 87)
+        if (startingNode == Color.GREEN):
+            backwardAmount = 170
+        else:
+            backwardAmount = 50
     elif (abs(nodeLookup[startingNode]-nodeLookup[endingNode]) == 2):
         if (startingNode == Color.YELLOW or startingNode == Color.GREEN):
             Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "RIGHT")
             turnOnSpot(robot, -90)
+            if (startingNode == Color.YELLOW):
+                backwardAmount = 0
+            else:
+                backwardAmount = 140
         else:
             Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
-            forwardMovement(robot, 240)
-            turnOnSpot(robot, 90)
+            PIDlineFollower(robot, 230, robot.DRIVE_SPEED, "RIGHT")
+            turnOnSpot(robot, 87)
+            if (startingNode == Color.RED):
+                backwardAmount = 170
+            else:
+                backwardAmount = 50
     elif (abs(nodeLookup[startingNode]-nodeLookup[endingNode]) == 1):
         if (nodeLookup[startingNode] < nodeLookup[endingNode]):
             if (startingNode == Color.GREEN or startingNode == Color.BLUE):
                 Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
-                forwardMovement(robot, 240)
-                turnOnSpot(robot, 90)
+                PIDlineFollower(robot, 230, robot.DRIVE_SPEED, "RIGHT")
+                turnOnSpot(robot, 87)
+                if (startingNode == Color.BLUE):
+                    backwardAmount = 170
+                else:
+                    backwardAmount = 50
             else:
                 Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "RIGHT")
-                # forwardMovement(robot, 50)
                 turnOnSpot(robot, -90)
+                backwardAmount = 140
         else:
             if (startingNode == Color.YELLOW or startingNode == Color.RED):
                 Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
-                forwardMovement(robot, 240)
-                turnOnSpot(robot, 90)
+                PIDlineFollower(robot, 230, robot.DRIVE_SPEED, "RIGHT")
+                turnOnSpot(robot, 87)
+                if (startingNode == Color.YELLOW):
+                    backwardAmount = 170
+                else:
+                    backwardAmount = 50
             else:
                 Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "RIGHT")
-                # forwardMovement(robot, 50)
                 turnOnSpot(robot, -90)
+                backwardAmount = 0
 
-    if (endingNode == Color.YELLOW or endingNode == Color.BLUE):
-        backwardMovement(robot, 150)
-    else:
-        backwardMovement(robot, 40)
+    backwardMovement(robot, backwardAmount)
 

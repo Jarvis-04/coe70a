@@ -712,6 +712,8 @@ class robotSolutions:
             carryingBlock = 1
             Movement.forwardMovement(self.testRobot, 90)
             sleep(1)
+            print("stop me")
+            wait(10000)
             Movement.nodeTraversal2016(self.testRobot, Color.GREEN, currentContainerColor)
         # Second Container
         Lift.seniorClaw2016(self.testRobot, "drop")
@@ -732,17 +734,17 @@ class robotSolutions:
             Lift.seniorClaw2016(self.testRobot, "drop")
             Lift.seniorClaw2016(self.testRobot, "open")
             sleep(1)
-            Movement.forwardMovement(self.testRobot, 120)
+            Movement.forwardMovement(self.testRobot, 90)
             Lift.seniorClaw2016(self.testRobot, "close")
             sleep(1)
             Movement.nodeTraversal2016(self.testRobot, Color.RED, Color.BLUE)
         else:
             carryingBlock = 1
-            Movement.forwardMovement(self.testRobot, 120)
+            Movement.forwardMovement(self.testRobot, 90)
             sleep(1)
             Movement.nodeTraversal2016(self.testRobot, prevContainerColor, currentContainerColor)
         # Third Container
-        Movement.turnOnSpot(self.testRobot, 10) # THIS IS TO ADJUST FOR TRAVERSAL FROM YELLOW TO BLUE, nodeTraversal may need to be adjusted
+        # Movement.turnOnSpot(self.testRobot, 10) # THIS IS TO ADJUST FOR TRAVERSAL FROM YELLOW TO BLUE, nodeTraversal may need to be adjusted
         Movement.forwardMovement(self.testRobot, 10) # SAME AS ABOVE
         Lift.seniorClaw2016(self.testRobot, "drop")
         Lift.seniorClaw2016(self.testRobot, "open")
