@@ -233,8 +233,8 @@ def robotStop(robot: WROrobot):
 
     """
     robot.driveBase.stop()
-    robot.left_wheel.brake()
-    robot.right_wheel.brake()
+    # robot.left_wheel.brake()
+    # robot.right_wheel.brake()
 
 
 def PIDlineFollower(robot: WROrobot, distanceToTravel, speed, side):
@@ -527,6 +527,21 @@ def nodeTraversal2016(robot, startingNode, endingNode):
         Detection.stopOnLine(robot, robot.DRIVE_SPEED)
         forwardMovement(robot, 30)
 
+    if (endingNode == "stage2"):
+        forwardMovement(robot, 40)
+        if (startingNode == Color.GREEN or startingNode == Color.BLUE):
+            turnOnSpot(robot, 50)
+            turnUntilLine(robot, "RIGHT")
+            turnOnSpot(robot, -10)
+            forwardMovement(robot, 30)
+        else:
+            turnOnSpot(robot, -50)
+            turnUntilLine(robot, "LEFT")
+            backwardMovement(robot, 200)
+            turnOnSpot(robot, 5)
+        Detection.lineFollowUntilLineIntersection(robot, 1000, robot.DRIVE_SPEED)
+        return
+
     forwardMovement(robot, 40)
     if (nodeLookup[startingNode] < nodeLookup[endingNode]):
         if (startingNode == Color.GREEN or startingNode == Color.BLUE):
@@ -555,7 +570,7 @@ def nodeTraversal2016(robot, startingNode, endingNode):
         Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
         forwardMovement(robot, 50)
         Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
-        PIDlineFollower(robot, 230, robot.DRIVE_SPEED, "RIGHT")
+        PIDlineFollower(robot, 225, robot.DRIVE_SPEED, "RIGHT")
         turnOnSpot(robot, 87)
         if (startingNode == Color.GREEN):
             backwardAmount = 170
@@ -568,10 +583,10 @@ def nodeTraversal2016(robot, startingNode, endingNode):
             if (startingNode == Color.YELLOW):
                 backwardAmount = 0
             else:
-                backwardAmount = 140
+                backwardAmount = 135
         else:
             Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
-            PIDlineFollower(robot, 230, robot.DRIVE_SPEED, "RIGHT")
+            PIDlineFollower(robot, 225, robot.DRIVE_SPEED, "RIGHT")
             turnOnSpot(robot, 87)
             if (startingNode == Color.RED):
                 backwardAmount = 170
@@ -581,8 +596,8 @@ def nodeTraversal2016(robot, startingNode, endingNode):
         if (nodeLookup[startingNode] < nodeLookup[endingNode]):
             if (startingNode == Color.GREEN or startingNode == Color.BLUE):
                 Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
-                PIDlineFollower(robot, 230, robot.DRIVE_SPEED, "RIGHT")
-                turnOnSpot(robot, 87)
+                PIDlineFollower(robot, 220, robot.DRIVE_SPEED, "RIGHT")
+                turnOnSpot(robot, 85)
                 if (startingNode == Color.BLUE):
                     backwardAmount = 170
                 else:
@@ -590,11 +605,11 @@ def nodeTraversal2016(robot, startingNode, endingNode):
             else:
                 Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "RIGHT")
                 turnOnSpot(robot, -90)
-                backwardAmount = 140
+                backwardAmount = 135
         else:
             if (startingNode == Color.YELLOW or startingNode == Color.RED):
                 Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
-                PIDlineFollower(robot, 230, robot.DRIVE_SPEED, "RIGHT")
+                PIDlineFollower(robot, 225, robot.DRIVE_SPEED, "RIGHT")
                 turnOnSpot(robot, 87)
                 if (startingNode == Color.YELLOW):
                     backwardAmount = 170
@@ -606,4 +621,3 @@ def nodeTraversal2016(robot, startingNode, endingNode):
                 backwardAmount = 0
 
     backwardMovement(robot, backwardAmount)
-

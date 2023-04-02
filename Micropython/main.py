@@ -65,8 +65,14 @@ robot = RobotBody.createRobot(robotParam)
 # Movement.setSpeed(robot, speed = 200)
 # Movement.nodeTraversal2016(robot, Color.GREEN, Color.RED)
 
+# Lift.seniorClaw2016(robot, "init")
+# Lift.seniorClaw2016(robot, "open")
+# Lift.seniorClaw2016(robot, "lift")
+# print(Detection.detectBlockReflection2016(robot, "container"))
+
 solution = Solution.robotSolutions(robot)
 Solution.robotSolutions.seniorSolution2016(solution)
+Movement.robotStop(robot)
 
 # Movement.turnOnSpot(robot, -90)
 

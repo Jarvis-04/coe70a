@@ -760,13 +760,13 @@ def detectBlockReflection2016(robot, item):
     blue = colorSensor.rgb()[2]
     threshold = 5
 
-    if ((blue > red) & (blue > green)):
+    if ((blue >= red) & (blue >= green)):
         return Color.BLUE
-    elif ((red-green>threshold) & (red-blue>threshold)):
+    elif ((red-green>=threshold) & (red-blue>=threshold)):
         return Color.RED
-    elif ((green-red>threshold) & (green-blue>threshold)):
+    elif ((green-red>=threshold) & (green-blue>=threshold)):
         return Color.GREEN
-    elif ((red-green) < threshold):
+    elif ((red-green) <= threshold):
         return Color.YELLOW
     return None
     # if (colorSensor.rgb()[0] in range(15,28)) and (colorSensor.rgb()[1] in range(15, 28)) and (colorSensor.rgb()[2] in range(5, 15)):
@@ -784,3 +784,9 @@ def detectBlockReflection2016(robot, item):
 # Blue (3, 15, 60)
 # Green (4, 23, 16)
 # Red (28, 5, 10)
+
+def getNextUncheckedNode(nodeDict):
+    for node in nodeDict:
+        if (node != nodeDict[node]):
+            return node
+    return None
