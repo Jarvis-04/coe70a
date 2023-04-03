@@ -621,3 +621,33 @@ def nodeTraversal2016(robot, startingNode, endingNode):
                 backwardAmount = 0
 
     backwardMovement(robot, backwardAmount)
+
+def turnUntilLineOneSensor2016(robot: WROrobot, direction):
+    """Allows robot to turn in a specific direction until it reaches a black line then will stop the robot
+
+    Args:
+        robot (WROrobot): Robot object used for competition
+        direction (int): direction in which the robot will turn
+
+    Raises:
+        TypeError: direction is not of type string
+
+    Returns:
+        None
+    """
+    if not type(direction) in [str]:
+        raise TypeError("direction must be of type string")
+    
+    currentColor = Detection.detectTankColor2016(robot, "tank")
+
+    if(direction == "RIGHT"):
+        robot.driveBase.drive(0,35)
+        while(currentColor != Color.BLACK):
+            currentColor = Detection.detectTankColor2016(robot, "tank")
+            None
+    elif(direction == "LEFT"):
+        robot.driveBase.drive(0,-35)
+        while(currentColor != Color.BLACK):
+            currentColor = Detection.detectTankColor2016(robot, "tank")
+            None
+    robotStop(robot)

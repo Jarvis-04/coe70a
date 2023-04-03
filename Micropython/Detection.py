@@ -780,13 +780,93 @@ def detectBlockReflection2016(robot, item):
     # else:
     #     return None
 
-# Yellow (40, 40, 20)
-# Blue (3, 15, 60)
-# Green (4, 23, 16)
-# Red (28, 5, 10)
+def detectTankColor2016(robot, item):
+    if (item == "container"):
+        colorSensor = robot.color_2
+    elif (item == "tank"):
+        colorSensor = robot.color_1
+
+    red = colorSensor.rgb()[0]
+    green = colorSensor.rgb()[1]
+    blue = colorSensor.rgb()[2]
+    threshold = 5
+
+    if (red in range(15,28)) and (green in range(15, 28)) and (blue in range(5, 15)):
+        return Color.YELLOW
+    elif (red in range(2,7)) and (green in range(10, 15)) and (blue in range(39, 44)):
+        return Color.BLUE
+    elif (red in range(2,7)) and (green in range(19, 24)) and (blue in range(4, 9)):
+        return Color.GREEN
+    elif (red in range(34,39)) and (green in range(3, 8)) and (blue in range(2, 7)):
+        return Color.RED
+    elif (red in range(0,10)) and (green in range(0, 10)) and (blue in range(0, 10)):
+        return Color.BLACK
+        return None
+
 
 def getNextUncheckedNode(nodeDict):
     for node in nodeDict:
         if (node != nodeDict[node]):
             return node
     return None
+
+def PIDlineFollowerUntilBlock2016(robot: WROrobot, distanceToTravel, speed, side):
+    """Allows robot to follow the black line on the competition mats
+
+    Args:
+        robot (robot object): A robot object
+        distanceToTravel (int): Indicates the distance robot should travel
+        speed (int): Speed of the robot
+        side (str): Indicates what side of the line robot is
+
+    Raises:
+        TypeError: distanceToTravel must be of type int
+        TypeError: speed must be of type int
+        TypeError: side must be of type str
+
+    Returns:
+        None
+
+    """
+
+    if not type(distanceToTravel) in [int]:
+        raise TypeError("distanceToTravel must be of type int")
+
+    if not type(speed) in [int]:
+        raise TypeError("speed must be of type int")
+
+    if not type(side) in [str]:
+        raise TypeError("side must be of type str")
+
+    Kp = robot.Kp
+    Ki = robot.Ki
+    Kd = robot.Kd
+    light_2 = robot.color_1
+    light_1 = robot.color_1
+    startDistance = robot.driveBase.distance()
+    distance = 0
+    error = 0
+    integral = 0
+    lastError = 0
+    derivative = 0
+    lastColor = Color.BLACK
+    consecutiveColor = 0
+
+    # Continue to follow the line until the distance the robot has travelled is equal to the travel distance specified
+    while ((distance < abs(distanceToTravel)) and (abs(distanceToTravel) >= 0)):
+        if(side == "LEFT"):
+            error = light_1.reflection() - robot.threshold
+        elif(side == "RIGHT"):
+            error = light_2.reflection() - robot.threshold
+        integral = integral + error
+        derivative = error - lastError
+        turn_rate = Kp * error + Ki * integral + Kd * derivative
+        robot.driveBase.drive(abs(speed), turn_rate *
+                              ((-1 if side == "LEFT" else 1) * -1))
+        lastError = error
+        distance = robot.driveBase.distance() - startDistance
+        color = detectTankColor2016(robot, "tank")
+        if ((color == Color.RED) or (color == Color.GREEN) or (color == Color.BLUE) or (color == Color.YELLOW)):
+            break
+    Movement.robotStop(robot)
+    return robot.driveBase.distance() - startDistance

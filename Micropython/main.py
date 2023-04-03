@@ -70,11 +70,29 @@ robot = RobotBody.createRobot(robotParam)
 # Lift.seniorClaw2016(robot, "lift")
 # print(Detection.detectBlockReflection2016(robot, "container"))
 
-solution = Solution.robotSolutions(robot)
-Solution.robotSolutions.seniorSolution2016(solution)
-Movement.robotStop(robot)
+# solution = Solution.robotSolutions(robot)
+# Solution.robotSolutions.seniorSolution2016(solution)
+# Movement.robotStop(robot)
 
-# Movement.turnOnSpot(robot, -90)
+# colorDict = {Color.GREEN:None, Color.RED:None, Color.BLUE:None, Color.YELLOW:None}
+# currentColor = Detection.detectBlockReflection2016(robot, "tank")
+# colorDict[currentColor] = 0
+# print(currentColor)
+# print(colorDict)
+Movement.turnUntilLineOneSensor2016(robot, "RIGHT")
+Detection.PIDlineFollowerUntilBlock2016(robot, 1000, 100, "LEFT")
+Movement.forwardMovement(robot, 20)
+Lift.setHolderPosition(robot, colorDict[currentColor] + 2, "turn")
+Lift.seniorClaw2016(robot, "press")
+Lift.seniorClaw2016(robot, "depress")
+# Movement.forwardMovement(robot, 20)
+# Movement.turnUntilLineOneSensor2016(robot, "LEFT")
+# Detection.PIDlineFollowerUntilBlock2016(robot, 1000, 100, "LEFT")
+# x = 1
+# while(x == 1):
+#     print(Detection.getBlockReflection2016(robot, "tank"))
+#     print(Detection.detectTankColor2016(robot, "tank"))
+# print("test")
 
 # Movement.setSpeed(robot, 200)
 # Movement.nodeTraversal2016(robot, "yellow", "blue")
