@@ -750,35 +750,47 @@ def getBlockReflection2016(robot, item):
         return robot.color_1.rgb()
 
 def detectBlockReflection2016(robot, item):
-    if (item == "container"):
+    if (item == "stage1"):
         colorSensor = robot.color_2
-    elif (item == "tank"):
+    elif (item == "stage2"):
         colorSensor = robot.color_1
 
     red = colorSensor.rgb()[0]
     green = colorSensor.rgb()[1]
     blue = colorSensor.rgb()[2]
-    threshold = 5
+    threshold = 3
 
-    if ((blue >= red) & (blue >= green)):
-        return Color.BLUE
-    elif ((red-green>=threshold) & (red-blue>=threshold)):
-        return Color.RED
-    elif ((green-red>=threshold) & (green-blue>=threshold)):
-        return Color.GREEN
-    elif ((red-green) <= threshold):
-        return Color.YELLOW
-    return None
-    # if (colorSensor.rgb()[0] in range(15,28)) and (colorSensor.rgb()[1] in range(15, 28)) and (colorSensor.rgb()[2] in range(5, 15)):
-    #     return Color.YELLOW
-    # elif (colorSensor.rgb()[0] in range(0,6)) and (colorSensor.rgb()[1] in range(3, 17)) and (colorSensor.rgb()[2] in range(19, 33)):
-    #     return Color.BLUE
-    # elif (colorSensor.rgb()[0] in range(0,5)) and (colorSensor.rgb()[1] in range(5, 25)) and (colorSensor.rgb()[2] in range(4, 40)):
-    #     return Color.GREEN
-    # elif (colorSensor.rgb()[0] in range(8,18)) and (colorSensor.rgb()[1] in range(0, 10)) and (colorSensor.rgb()[2] in range(0, 10)):
-    #     return Color.RED
-    # else:
-    #     return None
+    if (item == "stage1"):
+        if ((blue >= red) & (blue >= green)):
+            return Color.BLUE
+        elif ((red-green>=threshold) & (red-blue>=threshold)):
+            return Color.RED
+        elif ((green-red>=threshold) & (green-blue>=threshold)):
+            return Color.GREEN
+        elif ((red-green) <= threshold):
+            return Color.YELLOW
+        return None
+    elif (item == "stage2"):
+        if ((red >= 30) and (green >= 30)):
+            return Color.YELLOW
+        elif (blue >= 30):
+            return Color.BLUE
+        elif (green >= 20):
+            return Color.GREEN
+        elif (red >= 25):
+            return Color.RED
+        else:
+            return None
+        # if (red in range(15,28)) and (green in range(15, 28)) and (blue in range(5, 15)):
+        #     return Color.YELLOW
+        # elif (red in range(2,7)) and (green in range(10, 15)) and (blue in range(39, 44)):
+        #     return Color.BLUE
+        # elif (red in range(2,7)) and (green in range(19, 24)) and (blue in range(4, 9)):
+        #     return Color.GREEN
+        # elif (red in range(34,39)) and (green in range(3, 8)) and (blue in range(2, 7)):
+        #     return Color.RED
+        # else:
+        #     return None
 
 def detectTankColor2016(robot, item):
     if (item == "container"):
@@ -801,7 +813,6 @@ def detectTankColor2016(robot, item):
         return Color.RED
     elif (red in range(0,10)) and (green in range(0, 10)) and (blue in range(0, 10)):
         return Color.BLACK
-        return None
 
 
 def getNextUncheckedNode(nodeDict):

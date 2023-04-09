@@ -538,11 +538,11 @@ def nodeTraversal2016(robot, startingNode, endingNode):
             turnOnSpot(robot, -50)
             turnUntilLine(robot, "LEFT")
             backwardMovement(robot, 200)
-            turnOnSpot(robot, 5)
+            turnOnSpot(robot, 10)
         Detection.lineFollowUntilLineIntersection(robot, 1000, robot.DRIVE_SPEED)
         return
 
-    forwardMovement(robot, 40)
+    forwardMovement(robot, 30)
     if (nodeLookup[startingNode] < nodeLookup[endingNode]):
         if (startingNode == Color.GREEN or startingNode == Color.BLUE):
             turnOnSpot(robot, 50)
@@ -553,7 +553,7 @@ def nodeTraversal2016(robot, startingNode, endingNode):
             turnOnSpot(robot, -50)
             turnUntilLine(robot, "LEFT")
             backwardMovement(robot, 200)
-            turnOnSpot(robot, 5)
+            turnOnSpot(robot, 10)
     else :
         if (startingNode == Color.YELLOW or startingNode == Color.RED):
             turnOnSpot(robot, 50)
@@ -565,7 +565,7 @@ def nodeTraversal2016(robot, startingNode, endingNode):
             turnOnSpot(robot, -50)
             turnUntilLine(robot, "LEFT")
             backwardMovement(robot, 200)
-            turnOnSpot(robot, 5)
+            turnOnSpot(robot, 10)
     if (abs(nodeLookup[startingNode]-nodeLookup[endingNode]) == 3):
         Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
         forwardMovement(robot, 50)
@@ -579,15 +579,15 @@ def nodeTraversal2016(robot, startingNode, endingNode):
     elif (abs(nodeLookup[startingNode]-nodeLookup[endingNode]) == 2):
         if (startingNode == Color.YELLOW or startingNode == Color.GREEN):
             Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "RIGHT")
-            turnOnSpot(robot, -90)
+            turnOnSpot(robot, -87)
             if (startingNode == Color.YELLOW):
                 backwardAmount = 0
             else:
-                backwardAmount = 135
+                backwardAmount = 125
         else:
             Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
-            PIDlineFollower(robot, 225, robot.DRIVE_SPEED, "RIGHT")
-            turnOnSpot(robot, 87)
+            PIDlineFollower(robot, 220, robot.DRIVE_SPEED, "RIGHT")
+            turnOnSpot(robot, 85)
             if (startingNode == Color.RED):
                 backwardAmount = 170
             else:
@@ -597,30 +597,49 @@ def nodeTraversal2016(robot, startingNode, endingNode):
             if (startingNode == Color.GREEN or startingNode == Color.BLUE):
                 Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
                 PIDlineFollower(robot, 220, robot.DRIVE_SPEED, "RIGHT")
-                turnOnSpot(robot, 85)
+                turnOnSpot(robot, 87)
                 if (startingNode == Color.BLUE):
-                    backwardAmount = 170
+                    backwardAmount = 160
                 else:
                     backwardAmount = 50
             else:
                 Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "RIGHT")
-                turnOnSpot(robot, -90)
+                turnOnSpot(robot, -85)
                 backwardAmount = 135
         else:
             if (startingNode == Color.YELLOW or startingNode == Color.RED):
                 Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
                 PIDlineFollower(robot, 225, robot.DRIVE_SPEED, "RIGHT")
-                turnOnSpot(robot, 87)
+                turnOnSpot(robot, 85)
                 if (startingNode == Color.YELLOW):
-                    backwardAmount = 170
+                    backwardAmount = 160
                 else:
                     backwardAmount = 50
             else:
                 Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "RIGHT")
-                turnOnSpot(robot, -90)
+                turnOnSpot(robot, -85)
                 backwardAmount = 0
-
+    Lift.seniorClaw2016(robot, "open")
     backwardMovement(robot, backwardAmount)
+
+def hexagonFollower2016(robot: WROrobot):
+    colorFound = None
+    while(colorFound == None):
+        if (robot.color_1.reflection() > 12):
+            robot.driveBase.drive(-50,-35)
+        else:
+            robot.driveBase.drive(robot.DRIVE_SPEED, 10)
+        currentColor = Detection.detectBlockReflection2016(robot, "stage2")
+        if (currentColor is not None):
+                colorFound = currentColor
+    backwardMovement(robot, 50)
+    turnOnSpot(robot, -6)
+    while (Detection.detectBlockReflection2016(robot, "stage2") is not colorFound):
+        robot.driveBase.drive(50, 0)
+    robot.driveBase.stop()
+    forwardMovement(robot, 75)
+    print(colorFound)
+    return colorFound
 
 def turnUntilLineOneSensor2016(robot: WROrobot, direction):
     """Allows robot to turn in a specific direction until it reaches a black line then will stop the robot
@@ -637,7 +656,7 @@ def turnUntilLineOneSensor2016(robot: WROrobot, direction):
     """
     if not type(direction) in [str]:
         raise TypeError("direction must be of type string")
-    
+
     currentColor = Detection.detectTankColor2016(robot, "tank")
 
     if(direction == "RIGHT"):

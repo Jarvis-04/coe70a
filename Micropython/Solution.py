@@ -687,33 +687,38 @@ class robotSolutions:
         Detection.stopOnLine(robot = self.testRobot, speed = self.testRobot.DRIVE_SPEED)
         Movement.forwardMovement(self.testRobot, 120)
         Movement.turnUntilLine(self.testRobot, "LEFT")
-        Movement.backwardMovement(self.testRobot, 200)
+        Movement.backwardMovement(self.testRobot, 150)
         Movement.turnOnSpot(self.testRobot, 10)
         Detection.lineFollowUntilTurn(self.testRobot, 300, self.testRobot.DRIVE_SPEED, "right")
-        Movement.turnOnSpot(self.testRobot, -90)
-        # Containers
+        Movement.turnOnSpot(self.testRobot, -87)
+        Lift.seniorClaw2016(self.testRobot, "open")
+        # Movement.backwardMovement(self.testRobot, 5)
+        # # Containers
         allBlocksPlaced = 0
         carryingBlock = 0
         blockNumber = 0
         currentNode = Color.GREEN
         currentNodeBlocks = {Color.GREEN:None, Color.RED:None, Color.BLUE:None, Color.YELLOW:None}
-        garbageNodes = {Color.GREEN:None, Color.RED:None, Color.BLUE:None, Color.YELLOW:None}
+        garbageNodes = {Color.GREEN:1, Color.RED:3, Color.BLUE:0, Color.YELLOW:2}
         while(not allBlocksPlaced):
-            Lift.seniorClaw2016(self.testRobot, "open")
+            # Lift.seniorClaw2016(self.testRobot, "open")
             if (currentNodeBlocks[currentNode] != "Empty"):
                 Movement.backwardMovement(self.testRobot, 80)
+                Lift.seniorClaw2016(self.testRobot, "close")
+                Lift.seniorClaw2016(self.testRobot, "lift", 350)
+                Lift.seniorClaw2016(self.testRobot, "close")
                 Lift.seniorClaw2016(self.testRobot, "lift")
                 wait(500)
                 currentRGB = Detection.getBlockReflection2016(self.testRobot, "container")
-                currentContainerColor = Detection.detectBlockReflection2016(self.testRobot, "container")
+                currentContainerColor = Detection.detectBlockReflection2016(self.testRobot, "stage1")
                 print(currentRGB)
                 print(currentContainerColor)
-                garbageNodes[currentContainerColor] = blockNumber
-                blockNumber = blockNumber + 1
+                garbageNodes[currentContainerColor] = (blockNumber+2)%4
+                blockNumber += 1
                 Lift.setHolderPosition(self.testRobot, 1, "turn")
                 if (currentContainerColor == currentNode):
                     Lift.seniorClaw2016(self.testRobot, "open")
-                    Movement.forwardMovement(self.testRobot, 80)
+                    Movement.forwardMovement(self.testRobot, 70)
                     Lift.seniorClaw2016(self.testRobot, "close")
                     currentNodeBlocks[currentNode] = currentContainerColor
                     nextNode = Detection.getNextUncheckedNode(currentNodeBlocks)
@@ -722,18 +727,18 @@ class robotSolutions:
                         continue
                 else:
                     if (carryingBlock == 1):
-                        Movement.backwardMovement(self.testRobot, 80)
-                        Movement.forwardMovement(self.testRobot, 80)
+                        Movement.backwardMovement(self.testRobot, 70)
+                        Movement.forwardMovement(self.testRobot, 70)
                         currentNodeBlocks[currentNode] = currentNode
                     else :
                         currentNodeBlocks[currentNode] = "Empty"
                     carryingBlock = 1
-                    Movement.forwardMovement(self.testRobot, 80)
+                    Movement.forwardMovement(self.testRobot, 60)
                     nextNode = currentContainerColor
             else:
                 if (carryingBlock == 1):
-                    Movement.backwardMovement(self.testRobot, 160)
-                    Movement.forwardMovement(self.testRobot, 160)
+                    Movement.backwardMovement(self.testRobot, 150)
+                    Movement.forwardMovement(self.testRobot, 150)
                     Lift.seniorClaw2016(self.testRobot, "close")
                     currentNodeBlocks[currentNode] = currentNode
                     carryingBlock = 0
@@ -745,58 +750,80 @@ class robotSolutions:
             print (currentNodeBlocks)
             Movement.nodeTraversal2016(self.testRobot, currentNode, nextNode)
             currentNode = nextNode
-        print("Current Node is ", currentNode)
+        Lift.seniorClaw2016(self.testRobot, "lift")
         Movement.nodeTraversal2016(self.testRobot, currentNode, "stage2")
         Movement.dualSensorPIDlineFollower(self.testRobot, 50, self.testRobot.DRIVE_SPEED)
-        # Detection.lineFollowUntilLineIntersection(self.testRobot, 1000, self.testRobot.DRIVE_SPEED)
-        # Stage 2 - Tanks
-        # Starting position insted of being middle of stage 2 is beginning and it goes CCW from there
-        Lift.setHolderPosition(self.testRobot, 1, "turn") # set it back to original position
-        Movement.forwardMovement(self.testRobot, 100)
-        Movement.turnUntilLineOneSensor2016(self.testRobot, "LEFT")
-        # Container 1
-        Detection.PIDlineFollowerUntilBlock2016(self.testRobot, 1000, self.testRobot.DRIVE_SPEED, "LEFT")
-        tankColor = Detection.detectTankColor2016(self.testRobot, "tank")
-        Lift.setHolderPosition(self.testRobot, garbageNodes[tankColor] + 2, "turn")
-        Movement.forwardMovement(self.testRobot, 10)
-        Lift.seniorClaw2016(self.testRobot, "press")
-        Lift.seniorClaw2016(self.testRobot, "depress")
-        Lift.setHolderPosition(self.testRobot, garbageNodes[tankColor] + 2, "reset")
-        Movement.forwardMovement(self.testRobot, 50)
-        Movement.turnUntilLineOneSensor2016(self.testRobot, "LEFT")
-        # Container 2
-        Detection.PIDlineFollowerUntilBlock2016(self.testRobot, 1000, self.testRobot.DRIVE_SPEED, "LEFT")
-        tankColor = Detection.detectTankColor2016(self.testRobot, "tank")
-        Lift.setHolderPosition(self.testRobot, garbageNodes[tankColor] + 2, "turn")
-        Movement.forwardMovement(self.testRobot, 10)
-        Lift.seniorClaw2016(self.testRobot, "press")
-        Lift.seniorClaw2016(self.testRobot, "depress")
-        Lift.setHolderPosition(self.testRobot, garbageNodes[tankColor] + 2, "reset")
-        Movement.forwardMovement(self.testRobot, 50)
-        Movement.turnUntilLineOneSensor2016(self.testRobot, "LEFT")
-        # Container 3
-        Detection.PIDlineFollowerUntilBlock2016(self.testRobot, 1000, self.testRobot.DRIVE_SPEED, "LEFT")
-        tankColor = Detection.detectTankColor2016(self.testRobot, "tank")
-        Lift.setHolderPosition(self.testRobot, garbageNodes[tankColor] + 2, "turn")
-        Movement.forwardMovement(self.testRobot, 10)
-        Lift.seniorClaw2016(self.testRobot, "press")
-        Lift.seniorClaw2016(self.testRobot, "depress")
-        Lift.setHolderPosition(self.testRobot, garbageNodes[tankColor] + 2, "reset")
-        Movement.forwardMovement(self.testRobot, 50)
-        Movement.turnUntilLineOneSensor2016(self.testRobot, "LEFT")
-        # Container 4
-        Detection.PIDlineFollowerUntilBlock2016(self.testRobot, 1000, self.testRobot.DRIVE_SPEED, "LEFT")
-        tankColor = Detection.detectTankColor2016(self.testRobot, "tank")
-        Lift.setHolderPosition(self.testRobot, garbageNodes[tankColor] + 2, "turn")
-        Movement.forwardMovement(self.testRobot, 10)
-        Lift.seniorClaw2016(self.testRobot, "press")
-        Lift.seniorClaw2016(self.testRobot, "depress")
-        Lift.setHolderPosition(self.testRobot, garbageNodes[tankColor] + 2, "reset")
-        Movement.forwardMovement(self.testRobot, 50)
-        Movement.turnUntilLineOneSensor2016(self.testRobot, "LEFT")
-        # Ending Position
-        Detection.stopOnLine(self.testRobot, 500)
-        Movement.forwardMovement(self.testRobot, 100)
-        Movement.turnUntilLine(self.testRobot, "LEFT")
         Detection.lineFollowUntilLineIntersection(self.testRobot, 1000, self.testRobot.DRIVE_SPEED)
+        Movement.backwardMovement(self.testRobot, 50)
+        Movement.turnOnSpot(self.testRobot, 90)
+        # start depositing trash
+        allBlocksPlaced = 0
+        while (not all(value is None for value in garbageNodes.values())):
+            currentColor = Movement.hexagonFollower2016(self.testRobot)
+            Lift.setHolderPosition(self.testRobot, garbageNodes[currentColor], "turn")
+            Lift.seniorClaw2016(self.testRobot, "press")
+            Lift.seniorClaw2016(self.testRobot, "lift")
+            Lift.seniorClaw2016(self.testRobot, "press")
+            Lift.seniorClaw2016(self.testRobot, "lift")
+            Lift.setHolderPosition(self.testRobot, garbageNodes[currentColor], "reset")
+            garbageNodes[currentColor] = None
+            wait(500)
+            Movement.turnOnSpot(self.testRobot, 6)
+            Movement.forwardMovement(self.testRobot, 30)
+            allBlocksPlaced += 1
+
+
+
+
+
+        # # Stage 2 - Tanks
+        # # Starting position insted of being middle of stage 2 is beginning and it goes CCW from there
+        # Lift.setHolderPosition(self.testRobot, 1, "turn") # set it back to original position
+        # Movement.forwardMovement(self.testRobot, 100)
+        # Movement.turnUntilLineOneSensor2016(self.testRobot, "LEFT")
+        # # Container 1
+        # Detection.PIDlineFollowerUntilBlock2016(self.testRobot, 1000, self.testRobot.DRIVE_SPEED, "LEFT")
+        # tankColor = Detection.detectTankColor2016(self.testRobot, "tank")
+        # Lift.setHolderPosition(self.testRobot, garbageNodes[tankColor] + 2, "turn")
+        # Movement.forwardMovement(self.testRobot, 10)
+        # Lift.seniorClaw2016(self.testRobot, "press")
+        # Lift.seniorClaw2016(self.testRobot, "depress")
+        # Lift.setHolderPosition(self.testRobot, garbageNodes[tankColor] + 2, "reset")
+        # Movement.forwardMovement(self.testRobot, 50)
+        # Movement.turnUntilLineOneSensor2016(self.testRobot, "LEFT")
+        # # Container 2
+        # Detection.PIDlineFollowerUntilBlock2016(self.testRobot, 1000, self.testRobot.DRIVE_SPEED, "LEFT")
+        # tankColor = Detection.detectTankColor2016(self.testRobot, "tank")
+        # Lift.setHolderPosition(self.testRobot, garbageNodes[tankColor] + 2, "turn")
+        # Movement.forwardMovement(self.testRobot, 10)
+        # Lift.seniorClaw2016(self.testRobot, "press")
+        # Lift.seniorClaw2016(self.testRobot, "depress")
+        # Lift.setHolderPosition(self.testRobot, garbageNodes[tankColor] + 2, "reset")
+        # Movement.forwardMovement(self.testRobot, 50)
+        # Movement.turnUntilLineOneSensor2016(self.testRobot, "LEFT")
+        # # Container 3
+        # Detection.PIDlineFollowerUntilBlock2016(self.testRobot, 1000, self.testRobot.DRIVE_SPEED, "LEFT")
+        # tankColor = Detection.detectTankColor2016(self.testRobot, "tank")
+        # Lift.setHolderPosition(self.testRobot, garbageNodes[tankColor] + 2, "turn")
+        # Movement.forwardMovement(self.testRobot, 10)
+        # Lift.seniorClaw2016(self.testRobot, "press")
+        # Lift.seniorClaw2016(self.testRobot, "depress")
+        # Lift.setHolderPosition(self.testRobot, garbageNodes[tankColor] + 2, "reset")
+        # Movement.forwardMovement(self.testRobot, 50)
+        # Movement.turnUntilLineOneSensor2016(self.testRobot, "LEFT")
+        # # Container 4
+        # Detection.PIDlineFollowerUntilBlock2016(self.testRobot, 1000, self.testRobot.DRIVE_SPEED, "LEFT")
+        # tankColor = Detection.detectTankColor2016(self.testRobot, "tank")
+        # Lift.setHolderPosition(self.testRobot, garbageNodes[tankColor] + 2, "turn")
+        # Movement.forwardMovement(self.testRobot, 10)
+        # Lift.seniorClaw2016(self.testRobot, "press")
+        # Lift.seniorClaw2016(self.testRobot, "depress")
+        # Lift.setHolderPosition(self.testRobot, garbageNodes[tankColor] + 2, "reset")
+        # Movement.forwardMovement(self.testRobot, 50)
+        # Movement.turnUntilLineOneSensor2016(self.testRobot, "LEFT")
+        # # Ending Position
+        # Detection.stopOnLine(self.testRobot, 500)
+        # Movement.forwardMovement(self.testRobot, 100)
+        # Movement.turnUntilLine(self.testRobot, "LEFT")
+        # Detection.lineFollowUntilLineIntersection(self.testRobot, 1000, self.testRobot.DRIVE_SPEED)
         return
