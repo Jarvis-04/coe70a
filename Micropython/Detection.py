@@ -612,6 +612,19 @@ def lineFollowUntilBlock(robot: WROrobot, distanceToTravel, speed):
     return robot.driveBase.distance() - startDistance
 
 def forwardMovementUntilSolidColor(robot: WROrobot, distanceToTravel, speed):
+    """Forward movement until a solid color is seen
+
+    Args:
+        robot (robot object): A robot object
+        distanceToTravel (int): Indicates the distance robot should travel
+        speed (int): Speed of the robot
+
+    Raises:
+        None
+
+    Returns:
+        distance travelled
+    """
     startDistance = robot.driveBase.distance()
     distance = 0
     while ((distance < abs(distanceToTravel)) and (abs(distanceToTravel) >= 0)):
@@ -673,7 +686,7 @@ def lineFollowUntilTurn(robot: WROrobot, distanceToTravel, speed, side):
     return robot.driveBase.distance() - startDistance
 
 def PIDlineFollowUntilTurn(robot: WROrobot, distanceToTravel, speed, side):
-    """Allows robot to follow the black line on the competition mats
+    """Allows robot to follow the black line on the competition mats until a turn is seen on the specified side
 
     Args:
         robot (robot object): A robot object
@@ -687,7 +700,7 @@ def PIDlineFollowUntilTurn(robot: WROrobot, distanceToTravel, speed, side):
         TypeError: side must be of type str
 
     Returns:
-        None
+        Distance traveled
 
     """
 
@@ -735,21 +748,59 @@ def PIDlineFollowUntilTurn(robot: WROrobot, distanceToTravel, speed, side):
     Movement.robotStop(robot)
     return robot.driveBase.distance() - startDistance
 
-def detectBlockColor2016(robot, item):
+def detectBlockColor2016(robot: WROrobot, item):
+    """Returns the color seen by the container or tank sensor
+
+    Args:
+        robot (robot object): A robot object
+        item: Indicates which sensor should be checked
+
+    Raises:
+        None
+
+    Returns:
+        The color the sensor sees
+
+    """
     if (item == "container"):
         print(robot.color_2.color())
         return robot.color_2.color()
     elif (item == "tank"):
         return robot.color_1.color()
 
-
 def getBlockReflection2016(robot, item):
+    """Returns the color seen by the container or tank sensor in rgb values
+
+    Args:
+        robot (robot object): A robot object
+        item: Indicates which sensor should be checked
+
+    Raises:
+        None
+
+    Returns:
+        The color the sensor sees in rgb values
+
+    """
     if (item == "container"):
         return robot.color_2.rgb()
     elif (item == "tank"):
         return robot.color_1.rgb()
 
-def detectBlockReflection2016(robot, item):
+def detectBlockReflection2016(robot: WROrobot, item):
+    """Returns the color seen by the container or tank sensor using rgb values and value logic
+
+    Args:
+        robot (robot object): A robot object
+        item: The current stage, which sensor to use 
+
+    Raises:
+        None
+
+    Returns:
+        The color the sensor sees
+
+    """
     if (item == "stage1"):
         colorSensor = robot.color_2
     elif (item == "stage2"):
@@ -781,6 +832,7 @@ def detectBlockReflection2016(robot, item):
             return Color.RED
         else:
             return None
+        # alternative method of checking color
         # if (red in range(15,28)) and (green in range(15, 28)) and (blue in range(5, 15)):
         #     return Color.YELLOW
         # elif (red in range(2,7)) and (green in range(10, 15)) and (blue in range(39, 44)):
@@ -792,30 +844,20 @@ def detectBlockReflection2016(robot, item):
         # else:
         #     return None
 
-def detectTankColor2016(robot, item):
-    if (item == "container"):
-        colorSensor = robot.color_2
-    elif (item == "tank"):
-        colorSensor = robot.color_1
-
-    red = colorSensor.rgb()[0]
-    green = colorSensor.rgb()[1]
-    blue = colorSensor.rgb()[2]
-    threshold = 5
-
-    if (red in range(15,28)) and (green in range(15, 28)) and (blue in range(5, 15)):
-        return Color.YELLOW
-    elif (red in range(2,7)) and (green in range(10, 15)) and (blue in range(39, 44)):
-        return Color.BLUE
-    elif (red in range(2,7)) and (green in range(19, 24)) and (blue in range(4, 9)):
-        return Color.GREEN
-    elif (red in range(34,39)) and (green in range(3, 8)) and (blue in range(2, 7)):
-        return Color.RED
-    elif (red in range(0,10)) and (green in range(0, 10)) and (blue in range(0, 10)):
-        return Color.BLACK
-
 
 def getNextUncheckedNode(nodeDict):
+    """Returns the next node that has not been checked
+
+    Args:
+        nodeDict: The dictionary with the nodes and their checked state
+
+    Raises:
+        None
+
+    Returns:
+        The first node that has a value the doent match its key, none if all match their keys
+
+    """
     for node in nodeDict:
         if (node != nodeDict[node]):
             return node

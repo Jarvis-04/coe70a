@@ -521,12 +521,29 @@ def branchTraversal(robot: WROrobot, speed):
     return TurbineBaseTechnologyDecider
 
 def nodeTraversal2016(robot, startingNode, endingNode):
+    """Allows the robot to move from any node on the senior mat to any other node in stage 1. or move to stage 2 when nessesary. 
+    Given the starting and ending node it calculates the moves nessesary to park the claw in line with the block and right in front of it
+
+    Args:
+        robot (robot object): A robot object
+        startingNode: Where the robot currently is
+        endingNode: where the robot needs to go
+    
+    Raises:
+        None
+
+    Returns:
+        None
+    """
+    # replaces node colors with value, lower means closer to the start
     nodeLookup = {Color.GREEN:1, Color.RED:2, Color.BLUE:3, Color.YELLOW:4}
 
+    # if it has a longer starting spot then move until you are at the main bus line
     if (startingNode == Color.BLUE or startingNode == Color.YELLOW):
         Detection.stopOnLine(robot, robot.DRIVE_SPEED)
         forwardMovement(robot, 30)
 
+    # if we need to go to stage 2 just move down the mat
     if (endingNode == "stage2"):
         forwardMovement(robot, 40)
         if (startingNode == Color.GREEN or startingNode == Color.BLUE):
@@ -543,6 +560,7 @@ def nodeTraversal2016(robot, startingNode, endingNode):
         return
 
     forwardMovement(robot, 30)
+    # compare the nodes to see what needs to be done to get the robot lined up with the main bus in the right direction
     if (nodeLookup[startingNode] < nodeLookup[endingNode]):
         if (startingNode == Color.GREEN or startingNode == Color.BLUE):
             turnOnSpot(robot, 50)
@@ -566,6 +584,7 @@ def nodeTraversal2016(robot, startingNode, endingNode):
             turnUntilLine(robot, "LEFT")
             backwardMovement(robot, 200)
             turnOnSpot(robot, 10)
+    # if the difference in traversal is 3 stops its a max range move, yellow to green or vica versa
     if (abs(nodeLookup[startingNode]-nodeLookup[endingNode]) == 3):
         Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
         forwardMovement(robot, 50)
@@ -576,6 +595,7 @@ def nodeTraversal2016(robot, startingNode, endingNode):
             backwardAmount = 170
         else:
             backwardAmount = 50
+    # if its only 2 then more options available, find the correct move
     elif (abs(nodeLookup[startingNode]-nodeLookup[endingNode]) == 2):
         if (startingNode == Color.YELLOW or startingNode == Color.GREEN):
             Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "RIGHT")
@@ -592,6 +612,7 @@ def nodeTraversal2016(robot, startingNode, endingNode):
                 backwardAmount = 170
             else:
                 backwardAmount = 50
+    # one move, even more options, find correct movement again
     elif (abs(nodeLookup[startingNode]-nodeLookup[endingNode]) == 1):
         if (nodeLookup[startingNode] < nodeLookup[endingNode]):
             if (startingNode == Color.GREEN or startingNode == Color.BLUE):
@@ -619,19 +640,37 @@ def nodeTraversal2016(robot, startingNode, endingNode):
                 Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "RIGHT")
                 turnOnSpot(robot, -85)
                 backwardAmount = 0
+    # open the claw when you arrive and move back to the block 
     Lift.seniorClaw2016(robot, "open")
     backwardMovement(robot, backwardAmount)
 
 def hexagonFollower2016(robot: WROrobot):
+    """Allows the robot to move around the hexagon and detect any position of tanks. Only moves foward if its on the line, if not it
+    moves back and to the left to make sure nothing is missed
+
+    Args:
+        robot (robot object): A robot object
+    
+    Raises:
+        None
+
+    Returns:
+        The currect color of the tank it stopped at
+    """
     colorFound = None
+    # loop until block is found
     while(colorFound == None):
+        # if its off the line move back and the the left until it finds the line again
         if (robot.color_1.reflection() > 12):
             robot.driveBase.drive(-50,-35)
         else:
+            # move forward and slightly right to keep on outside edge
             robot.driveBase.drive(robot.DRIVE_SPEED, 10)
+        # detect a block if one exists
         currentColor = Detection.detectBlockReflection2016(robot, "stage2")
         if (currentColor is not None):
                 colorFound = currentColor
+    # once a color is found stop, move back, and approach slowly to properly line up the tank so the block can be dropped accurately
     backwardMovement(robot, 50)
     turnOnSpot(robot, -6)
     while (Detection.detectBlockReflection2016(robot, "stage2") is not colorFound):
@@ -640,33 +679,3 @@ def hexagonFollower2016(robot: WROrobot):
     forwardMovement(robot, 75)
     print(colorFound)
     return colorFound
-
-def turnUntilLineOneSensor2016(robot: WROrobot, direction):
-    """Allows robot to turn in a specific direction until it reaches a black line then will stop the robot
-
-    Args:
-        robot (WROrobot): Robot object used for competition
-        direction (int): direction in which the robot will turn
-
-    Raises:
-        TypeError: direction is not of type string
-
-    Returns:
-        None
-    """
-    if not type(direction) in [str]:
-        raise TypeError("direction must be of type string")
-
-    currentColor = Detection.detectTankColor2016(robot, "tank")
-
-    if(direction == "RIGHT"):
-        robot.driveBase.drive(0,35)
-        while(currentColor != Color.BLACK):
-            currentColor = Detection.detectTankColor2016(robot, "tank")
-            None
-    elif(direction == "LEFT"):
-        robot.driveBase.drive(0,-35)
-        while(currentColor != Color.BLACK):
-            currentColor = Detection.detectTankColor2016(robot, "tank")
-            None
-    robotStop(robot)

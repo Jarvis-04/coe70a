@@ -361,13 +361,39 @@ def elevatorDrop(robot:WROrobot, blockNumber):
     # first line resets elevator to base position
     robot.motor_2.run_angle(500, -140*blockNumber, Stop.HOLD, True) #Second parameter(angle) needs to be tested with robot and changed accordingly
 
-def setHolderPosition(robot, numRotations, command):
+def setHolderPosition(robot:WROrobot, numRotations, command):
+    """Moves the trash holder to a certain position
+
+    Args:
+        robot (WROrobot): Robot object used for competition
+        numRotations: the number of spots to turn
+        command: which direction the spinner should go
+
+    Raises:
+        None
+
+    Returns:
+        None
+    """
     if (command == "turn"):
         robot.motor_2.run_angle(300, numRotations*90)
     elif (command == "reset"):
         robot.motor_2.run_angle(300, numRotations*-90)
 
-def seniorClaw2016(robot, position, speed=200):
+def seniorClaw2016(robot:WROrobot, position, speed=200):
+    """Moves the claw to the desired position
+
+    Args:
+        robot (WROrobot): Robot object used for competition
+        position: which position the claw should go to
+        speed: how fast the claw should move
+
+    Raises:
+        None
+
+    Returns:
+        None
+    """
     if (position == "open"):
         robot.motor_1.run_target(speed, 120)
     elif (position == "close"):
