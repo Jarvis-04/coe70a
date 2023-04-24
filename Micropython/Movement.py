@@ -528,7 +528,7 @@ def nodeTraversal2016(robot, startingNode, endingNode):
         robot (robot object): A robot object
         startingNode: Where the robot currently is
         endingNode: where the robot needs to go
-    
+
     Raises:
         None
 
@@ -537,15 +537,21 @@ def nodeTraversal2016(robot, startingNode, endingNode):
     """
     # replaces node colors with value, lower means closer to the start
     nodeLookup = {Color.GREEN:1, Color.RED:2, Color.BLUE:3, Color.YELLOW:4}
+    rightAngle = 97
+    negativeRightAngle = -100
+    greenBackupAmmount = 0
+    redBackupAmmount = 0
+    blueBackupAmmount = 120
+    yellowBackupAmmount = 120
 
     # if it has a longer starting spot then move until you are at the main bus line
     if (startingNode == Color.BLUE or startingNode == Color.YELLOW):
         Detection.stopOnLine(robot, robot.DRIVE_SPEED)
-        forwardMovement(robot, 30)
+        # forwardMovement(robot, 30)
 
     # if we need to go to stage 2 just move down the mat
     if (endingNode == "stage2"):
-        forwardMovement(robot, 40)
+        forwardMovement(robot, 110)
         if (startingNode == Color.GREEN or startingNode == Color.BLUE):
             turnOnSpot(robot, 50)
             turnUntilLine(robot, "RIGHT")
@@ -554,43 +560,47 @@ def nodeTraversal2016(robot, startingNode, endingNode):
         else:
             turnOnSpot(robot, -50)
             turnUntilLine(robot, "LEFT")
-            backwardMovement(robot, 200)
             turnOnSpot(robot, 10)
+            forwardMovement(robot, 30)
+        Lift.seniorClaw2016(robot, "close")
         Detection.lineFollowUntilLineIntersection(robot, 1000, robot.DRIVE_SPEED)
         return
 
-    forwardMovement(robot, 30)
     # compare the nodes to see what needs to be done to get the robot lined up with the main bus in the right direction
     if (nodeLookup[startingNode] < nodeLookup[endingNode]):
         if (startingNode == Color.GREEN or startingNode == Color.BLUE):
+            forwardMovement(robot, 80)
             turnOnSpot(robot, 50)
             turnUntilLine(robot, "RIGHT")
             turnOnSpot(robot, -10)
             forwardMovement(robot, 30)
         else:
+            forwardMovement(robot, 130)
             turnOnSpot(robot, -50)
             turnUntilLine(robot, "LEFT")
             backwardMovement(robot, 200)
             turnOnSpot(robot, 10)
     else :
         if (startingNode == Color.YELLOW or startingNode == Color.RED):
+            forwardMovement(robot, 80)
             turnOnSpot(robot, 50)
             turnUntilLine(robot, "RIGHT")
             turnOnSpot(robot, -10)
             forwardMovement(robot, 30)
         else:
-            forwardMovement(robot, 40)
+            forwardMovement(robot, 130)
             turnOnSpot(robot, -50)
             turnUntilLine(robot, "LEFT")
             backwardMovement(robot, 200)
             turnOnSpot(robot, 10)
+    Lift.seniorClaw2016(robot, "lift")
     # if the difference in traversal is 3 stops its a max range move, yellow to green or vica versa
     if (abs(nodeLookup[startingNode]-nodeLookup[endingNode]) == 3):
         Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
         forwardMovement(robot, 50)
         Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
         PIDlineFollower(robot, 225, robot.DRIVE_SPEED, "RIGHT")
-        turnOnSpot(robot, 87)
+        turnOnSpot(robot, rightAngle)
         if (startingNode == Color.GREEN):
             backwardAmount = 170
         else:
@@ -599,7 +609,7 @@ def nodeTraversal2016(robot, startingNode, endingNode):
     elif (abs(nodeLookup[startingNode]-nodeLookup[endingNode]) == 2):
         if (startingNode == Color.YELLOW or startingNode == Color.GREEN):
             Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "RIGHT")
-            turnOnSpot(robot, -87)
+            turnOnSpot(robot, negativeRightAngle)
             if (startingNode == Color.YELLOW):
                 backwardAmount = 0
             else:
@@ -607,7 +617,7 @@ def nodeTraversal2016(robot, startingNode, endingNode):
         else:
             Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
             PIDlineFollower(robot, 220, robot.DRIVE_SPEED, "RIGHT")
-            turnOnSpot(robot, 85)
+            turnOnSpot(robot, rightAngle)
             if (startingNode == Color.RED):
                 backwardAmount = 170
             else:
@@ -618,30 +628,39 @@ def nodeTraversal2016(robot, startingNode, endingNode):
             if (startingNode == Color.GREEN or startingNode == Color.BLUE):
                 Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
                 PIDlineFollower(robot, 220, robot.DRIVE_SPEED, "RIGHT")
-                turnOnSpot(robot, 87)
+                turnOnSpot(robot, rightAngle)
                 if (startingNode == Color.BLUE):
                     backwardAmount = 160
                 else:
-                    backwardAmount = 50
+                    backwardAmount = 55
             else:
                 Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "RIGHT")
-                turnOnSpot(robot, -85)
+                turnOnSpot(robot, negativeRightAngle)
                 backwardAmount = 135
         else:
             if (startingNode == Color.YELLOW or startingNode == Color.RED):
                 Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "LEFT")
                 PIDlineFollower(robot, 225, robot.DRIVE_SPEED, "RIGHT")
-                turnOnSpot(robot, 85)
+                turnOnSpot(robot, rightAngle)
                 if (startingNode == Color.YELLOW):
                     backwardAmount = 160
                 else:
                     backwardAmount = 50
             else:
                 Detection.PIDlineFollowUntilTurn(robot, 1000, robot.DRIVE_SPEED, "RIGHT")
-                turnOnSpot(robot, -85)
+                turnOnSpot(robot, negativeRightAngle)
                 backwardAmount = 0
-    # open the claw when you arrive and move back to the block 
+    # open the claw when you arrive and move back to the block
     Lift.seniorClaw2016(robot, "open")
+    Detection.stopOnLine(robot, -robot.DRIVE_SPEED)
+    if endingNode == Color.GREEN:
+        backwardAmount = greenBackupAmmount
+    if endingNode == Color.RED:
+        backwardAmount = redBackupAmmount
+    if endingNode == Color.BLUE:
+        backwardAmount = blueBackupAmmount
+    if endingNode == Color.YELLOW:
+        backwardAmount = yellowBackupAmmount
     backwardMovement(robot, backwardAmount)
 
 def hexagonFollower2016(robot: WROrobot):
@@ -650,7 +669,7 @@ def hexagonFollower2016(robot: WROrobot):
 
     Args:
         robot (robot object): A robot object
-    
+
     Raises:
         None
 

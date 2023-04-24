@@ -54,7 +54,7 @@ if (mission == "senior2016"):
     robotParam["color_2"] = ColorSensor(Port.S4)
     robotParam["motor_1"] = Motor(Port.A)
     robotParam["motor_2"] = Motor(Port.D)
-    robotParam["driveBase"] = DriveBase(Motor(Port.B, Direction.COUNTERCLOCKWISE), Motor(Port.C, Direction.COUNTERCLOCKWISE), wheel_diameter=55, axle_track=135.0)
+    robotParam["driveBase"] = DriveBase(Motor(Port.B, Direction.COUNTERCLOCKWISE), Motor(Port.C, Direction.COUNTERCLOCKWISE), wheel_diameter=56.0, axle_track=120.0)
     robot = RobotBody.createRobot(robotParam)
 
     solution = Solution.robotSolutions(robot)

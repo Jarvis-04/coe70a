@@ -698,8 +698,9 @@ class robotSolutions:
         Movement.backwardMovement(self.testRobot, 150)
         Movement.turnOnSpot(self.testRobot, 10)
         Detection.lineFollowUntilTurn(self.testRobot, 300, self.testRobot.DRIVE_SPEED, "right")
-        Movement.turnOnSpot(self.testRobot, -87)
+        Movement.turnOnSpot(self.testRobot, -95)
         Lift.seniorClaw2016(self.testRobot, "open")
+        Movement.backwardMovement(self.testRobot, 80)
         # Containers
         # variables needed to track progress
         allBlocksPlaced = 0
@@ -712,9 +713,9 @@ class robotSolutions:
             # if node has a block then pick it up to check it
             if (currentNodeBlocks[currentNode] != "Empty"):
                 # grab block and deposit trash into holder
-                Movement.backwardMovement(self.testRobot, 80)
+                # Movement.backwardMovement(self.testRobot, 80)
                 Lift.seniorClaw2016(self.testRobot, "close")
-                Lift.seniorClaw2016(self.testRobot, "lift", 350)
+                Lift.seniorClaw2016(self.testRobot, "lift", speed=300)
                 Lift.seniorClaw2016(self.testRobot, "close")
                 Lift.seniorClaw2016(self.testRobot, "lift")
                 wait(500)
@@ -731,8 +732,8 @@ class robotSolutions:
                 if (currentContainerColor == currentNode):
                     # deposit container back to its node
                     Lift.seniorClaw2016(self.testRobot, "open")
-                    Movement.forwardMovement(self.testRobot, 70)
-                    Lift.seniorClaw2016(self.testRobot, "close")
+                    # Movement.forwardMovement(self.testRobot, 70)
+                    # Lift.seniorClaw2016(self.testRobot, "close")
                     # label that the current node has its matching color
                     currentNodeBlocks[currentNode] = currentContainerColor
                     # look through dictionary to find the next node that isnt correct
@@ -744,23 +745,23 @@ class robotSolutions:
                 else:
                     # if currently carrying a block then push it onto the proper spot and set it as correct
                     if (carryingBlock == 1):
-                        Movement.backwardMovement(self.testRobot, 70)
-                        Movement.forwardMovement(self.testRobot, 70)
+                        Movement.backwardMovement(self.testRobot, 85)
+                        Movement.forwardMovement(self.testRobot, 85)
                         currentNodeBlocks[currentNode] = currentNode
                     # if not carrying a block then the current node is now empty since we grabbed the container
                     else :
                         currentNodeBlocks[currentNode] = "Empty"
                     # set the next node to the color of the block we are carrying
                     carryingBlock = 1
-                    Movement.forwardMovement(self.testRobot, 60)
+                    # Movement.forwardMovement(self.testRobot, 60)
                     nextNode = currentContainerColor
             # if the node is empty then skip the picking up part
             else:
                 # deposit the block we are carrying to fill the node
                 if (carryingBlock == 1):
-                    Movement.backwardMovement(self.testRobot, 150)
-                    Movement.forwardMovement(self.testRobot, 150)
-                    Lift.seniorClaw2016(self.testRobot, "close")
+                    Movement.backwardMovement(self.testRobot, 100)
+                    Movement.forwardMovement(self.testRobot, 100)
+                    # Lift.seniorClaw2016(self.testRobot, "close")
                     currentNodeBlocks[currentNode] = currentNode
                     carryingBlock = 0
                 # find the next unsolved node
@@ -775,12 +776,12 @@ class robotSolutions:
             Movement.nodeTraversal2016(self.testRobot, currentNode, nextNode)
             currentNode = nextNode
         # lift claw and move to the second stage
-        Lift.seniorClaw2016(self.testRobot, "lift")
         Movement.nodeTraversal2016(self.testRobot, currentNode, "stage2")
+        Lift.seniorClaw2016(self.testRobot, "lift")
         Movement.dualSensorPIDlineFollower(self.testRobot, 50, self.testRobot.DRIVE_SPEED)
         Detection.lineFollowUntilLineIntersection(self.testRobot, 1000, self.testRobot.DRIVE_SPEED)
-        Movement.backwardMovement(self.testRobot, 50)
-        Movement.turnOnSpot(self.testRobot, 90)
+        Movement.backwardMovement(self.testRobot, 70)
+        Movement.turnOnSpot(self.testRobot, 95)
         # start depositing trash
         # continue until all trash has been deposited
         while (not all(value is None for value in garbageNodes.values())):
